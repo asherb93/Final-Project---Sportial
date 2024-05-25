@@ -13,8 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Sportial"
-        tools:targetApi="31"
-        tools:ignore="WrongManifestParent,WrongManifestPaxxrent">
+        tools:ignore="WrongManifestParent,WrongManifestPaxxrent"
+        tools:targetApi="31">
+        <activity
+            android:name=".ProfilePageActivity"
+            android:exported="false" />
         <activity
             android:name=".UI.sportChoiceActivity"
             android:exported="true" />
