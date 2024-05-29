@@ -16,8 +16,8 @@
         tools:ignore="WrongManifestParent,WrongManifestPaxxrent"
         tools:targetApi="31">
         <activity
-            android:name=".ProfilePageActivity"
-            android:exported="false" />
+            android:name=".UI.ProfilePageActivity"
+            android:exported="true" />
         <activity
             android:name=".UI.sportChoiceActivity"
             android:exported="true" />

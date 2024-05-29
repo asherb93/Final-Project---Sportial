@@ -99,7 +99,6 @@ public class sportChoiceActivity extends AppCompatActivity {
 
             });
 
-
     }
 
 
