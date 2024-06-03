@@ -12,6 +12,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseUser;
+
 import java.io.IOException;
 
 public class ImageUploadActivity extends AppCompatActivity {
@@ -20,6 +22,8 @@ public class ImageUploadActivity extends AppCompatActivity {
 
     private ImageView profileImageView;
     private Button pickImageButton;
+    private FirebaseFunctions uploadim;
+    private Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +39,7 @@ public class ImageUploadActivity extends AppCompatActivity {
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
                         // Get the image URI from the result
-                        Uri imageUri = result.getData().getData();
+                        imageUri = result.getData().getData();
                         try {
                             Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
                         } catch (IOException e) {
@@ -49,6 +53,8 @@ public class ImageUploadActivity extends AppCompatActivity {
 
         // Set a click listener for the pick image button
         pickImageButton.setOnClickListener(view -> {
+            FirebaseUser user = mAuth.getCurrentUser();
+            uploadim.uploadPicture(user.getUid(), imageUri);
             // Create an intent to pick an image
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");

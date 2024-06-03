@@ -15,12 +15,12 @@ public class FirebaseFunctions {
         storage = FirebaseStorage.getInstance();
     }
 
-    public void uploadPicture(String userId, File pictureFile) {
+    public void uploadPicture(String userId, Uri imageUri) {
         // Create a reference to the Cloud Storage location
-        StorageReference storageRef = storage.getReference().child("user_pictures/" + userId + "/" + pictureFile.getName());
+        StorageReference storageRef = storage.getReference().child("user_pictures/" + userId + "/" + imageUri);
 
         // Upload the picture to Cloud Storage
-        storageRef.putFile(Uri.fromFile(pictureFile))
+        storageRef.putFile(imageUri)
                 .addOnSuccessListener(taskSnapshot -> {
                     // Get the download URL of the uploaded picture
                     storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
