@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1048332227007",
-    "project_id": "sportial-42032",
-    "storage_bucket": "sportial-42032.appspot.com"
+    "project_number": "899485961449",
+    "project_id": "sportial-final",
+    "storage_bucket": "sportial-final.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1048332227007:android:ec016db243913dd14b910a",
+        "mobilesdk_app_id": "1:899485961449:android:55013d15ac8dc179683478",
         "android_client_info": {
           "package_name": "com.example.sportial"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAFMS8dHxM-H4nMnPjI8W6USvNjP8upnqs"
+          "current_key": "AIzaSyAfYlLvOBCJn8IbLjtdfxzDkmXSxZHy1vw"
         }
       ],
       "services": {
