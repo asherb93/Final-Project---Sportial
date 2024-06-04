@@ -12,14 +12,17 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 
 import java.io.IOException;
 
 public class ImageUploadActivity extends AppCompatActivity {
 
     private static final int REQUEST_IMAGE_PICK = 1;
-
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
     private ImageView profileImageView;
     private Button pickImageButton;
     private FirebaseFunctions uploadim;
