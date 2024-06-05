@@ -22,6 +22,7 @@ public class ImageUploadActivity extends AppCompatActivity {
 
     private static final int REQUEST_IMAGE_PICK = 1;
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
     private DatabaseReference mDatabase;
     private ImageView profileImageView;
     private Button pickImageButton;
@@ -32,6 +33,8 @@ public class ImageUploadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_upload);
+
+        user = mAuth.getCurrentUser();
 
         profileImageView = findViewById(R.id.profile_image_view);
         pickImageButton = findViewById(R.id.uploadImageButton);
@@ -56,7 +59,6 @@ public class ImageUploadActivity extends AppCompatActivity {
 
         // Set a click listener for the pick image button
         pickImageButton.setOnClickListener(view -> {
-            FirebaseUser user = mAuth.getCurrentUser();
             uploadim.uploadPicture(user.getUid(), imageUri);
             // Create an intent to pick an image
             Intent intent = new Intent(Intent.ACTION_PICK);
