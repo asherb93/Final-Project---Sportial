@@ -2,27 +2,18 @@ package com.example.sportial.UI;
 
 import static com.example.sportial.R.*;
 
-import android.animation.Animator;
-import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.res.ColorStateList;
+import android.content.Intent;
 import android.graphics.PorterDuff;
-import android.os.Build;
 import android.os.Bundle;
-import android.transition.AutoTransition;
-import android.transition.TransitionManager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -34,9 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sportial.Adapter.SC_RV_Adapter;
 import com.example.sportial.R;
-import com.example.sportial.UI.sportCardModel;
-
-import org.w3c.dom.Text;
+import com.example.sportial.Data.sportCardModel;
 
 import java.util.ArrayList;
 
@@ -91,7 +80,9 @@ public class sportChoiceActivity extends AppCompatActivity {
     private void initListeners() {
             continueBtn.setOnClickListener(v -> {
                 try{
-                    Toast.makeText(this, "You chose " + sportName.getText().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "You choose" + sportName.getText().toString(), Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(this,ProfilePageActivity.class);
+                    startActivity(intent);
                 }
                 catch (Exception e){
                     Toast.makeText(this, "Please choose a sport", Toast.LENGTH_SHORT).show();

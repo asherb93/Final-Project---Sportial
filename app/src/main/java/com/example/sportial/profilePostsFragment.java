@@ -1,6 +1,5 @@
 package com.example.sportial;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,8 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.sportial.Adapter.PV_RV_Adapter;
-import com.example.sportial.Adapter.SC_RV_Adapter;
-import com.example.sportial.UI.postCardModel;
+import com.example.sportial.Data.postCardModel;
 
 import java.util.ArrayList;
 

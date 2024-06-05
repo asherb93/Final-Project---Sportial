@@ -9,14 +9,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sportial.Adapter.PV_RV_Adapter;
-import com.example.sportial.Adapter.SC_RV_Adapter;
+import com.example.sportial.Data.postCardModel;
 import com.example.sportial.R;
 import com.example.sportial.profilePostsFragment;
 

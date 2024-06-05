@@ -9,9 +9,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.example.sportial" />
-                  <option name="mobileSdkAppId" value="1:1048332227007:android:ec016db243913dd14b910a" />
-                  <option name="projectId" value="sportial-42032" />
-                  <option name="projectNumber" value="1048332227007" />
+                  <option name="mobileSdkAppId" value="1:899485961449:android:55013d15ac8dc179683478" />
+                  <option name="projectId" value="sportial-final" />
+                  <option name="projectNumber" value="899485961449" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

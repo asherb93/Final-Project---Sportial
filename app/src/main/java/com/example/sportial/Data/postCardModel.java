@@ -1,4 +1,4 @@
-package com.example.sportial.UI;
+package com.example.sportial.Data;
 
 public class postCardModel {
 

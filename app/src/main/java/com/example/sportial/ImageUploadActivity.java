@@ -12,6 +12,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sportial.UI.sportChoiceActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +27,8 @@ public class ImageUploadActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private ImageView profileImageView;
     private Button pickImageButton;
+
+    private Button continueButton;
     private FirebaseFunctions uploadim;
     private Uri imageUri;
 
@@ -36,6 +39,7 @@ public class ImageUploadActivity extends AppCompatActivity {
 
         profileImageView = findViewById(R.id.profile_image_view);
         pickImageButton = findViewById(R.id.uploadImageButton);
+        continueButton = findViewById(R.id.image_upload_continue_btn);
 
         // Register the activity result launcher for picking an image
         ActivityResultLauncher<Intent> pickImageLauncher = registerForActivityResult(
@@ -61,9 +65,14 @@ public class ImageUploadActivity extends AppCompatActivity {
             // Create an intent to pick an image
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
-
             // Launch the image picker activity
             pickImageLauncher.launch(intent);
         });
+
+        continueButton.setOnClickListener(view -> {
+            Intent intent = new Intent(ImageUploadActivity.this, sportChoiceActivity.class);
+            startActivity(intent);
+        });
     }
 }
+

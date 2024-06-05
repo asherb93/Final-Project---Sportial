@@ -83,7 +83,6 @@ public class ProfileCreationActivity extends AppCompatActivity {
         Spinner monthSpinner = findViewById(R.id.db_month);
         Spinner yearSpinner = findViewById(R.id.db_year);
         Spinner genderSpinner =findViewById(R.id.db_gender) ;
-        Spinner sportSpinner = findViewById(R.id.db_sport);
         EditText countryEditText = findViewById(R.id.ac_country);
         EditText cityEditText = findViewById(R.id.ac_city);
 
@@ -99,7 +98,6 @@ public class ProfileCreationActivity extends AppCompatActivity {
                     String userBirthMonth = monthSpinner.getSelectedItem().toString();
                     int userBirthYear = Integer.parseInt(yearSpinner.getSelectedItem().toString());
                     String genderStr = genderSpinner.getSelectedItem().toString();
-                    String sportStr = sportSpinner.getSelectedItem().toString();
                     String countryStr = countryEditText.getText().toString();
                     String cityStr = cityEditText.getText().toString();
                     // Create an Intent object with the target activity class
