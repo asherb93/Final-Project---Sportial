@@ -34,8 +34,6 @@ public class ImageUploadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_upload);
 
-        user = mAuth.getCurrentUser();
-
         profileImageView = findViewById(R.id.profile_image_view);
         pickImageButton = findViewById(R.id.uploadImageButton);
 
@@ -59,7 +57,7 @@ public class ImageUploadActivity extends AppCompatActivity {
 
         // Set a click listener for the pick image button
         pickImageButton.setOnClickListener(view -> {
-            uploadim.uploadPicture(user.getUid(), imageUri);
+            //uploadim.uploadPicture(user.getUid(), imageUri);
             // Create an intent to pick an image
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
