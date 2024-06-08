@@ -60,7 +60,8 @@ dependencies {
     implementation "androidx.fragment:fragment:$fragment_version"
 
     // Import the BoM for the Firebase platform
-        implementation platform('com.google.firebase:firebase-bom:33.0.0')
+        implementation platform('com.google.firebase:firebase-bom:33.1.0')
+    implementation 'com.google.firebase:firebase-analytics'
 
         // Declare the dependencies for the desired Firebase products without specifying versions
         // For example, declare the dependencies for Firebase Authentication and Cloud Firestore

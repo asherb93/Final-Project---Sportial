@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -25,18 +26,20 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.UUID;
 
 public class ImageUploadActivity extends AppCompatActivity {
 
     private static final int REQUEST_IMAGE_PICK = 1;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
-    private DatabaseReference mDatabase;
+    FirebaseStorage storage;
+    StorageReference storageReference;
     private ImageView profileImageView;
     private Button pickImageButton;
 
     private Button continueButton;
-    private FirebaseFunctions uploadim;
+
     private Uri imageUri;
 
     @Override
@@ -48,44 +51,22 @@ public class ImageUploadActivity extends AppCompatActivity {
         pickImageButton = findViewById(R.id.uploadImageButton);
         continueButton = findViewById(R.id.image_upload_continue_btn);
 
-        // Register a launcher for the image picker activity
-        ActivityResultLauncher<Intent> pickImageLauncher =
-                registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                        result -> {
-                            if (result.getResultCode() == RESULT_OK) {
-                                // Get the image URI from the result
-                                Uri imageUri = result.getData().getData();
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
-                            }
-                        });
+        // Register the activity result launcher for picking an image
+        ActivityResultLauncher<Intent> pickImageLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        // Get the image URI from the result
+                        imageUri = result.getData().getData();
 
-        // Create a reference to the Firebase Storage location where you want to store the image
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference("images/users/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/" + imageUri.getLastPathSegment());
-
-// Upload the image to Firebase Storage
-        storageRef.putFile(imageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // Get the download URL of the uploaded image
-                        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri downloadUri) {
-                                // Store the download URL in the Firebase user database
-                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                user.updateProfile(new UserProfileChangeRequest.Builder()
-                                        .setPhotoUri(downloadUri)
-                                        .build());
-                            }
-                        });
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Handle the error
+                        // Set the image URI to the ImageView
+                        profileImageView.setImageURI(imageUri);
                     }
                 });
+
 
         // Set a click listener for the pick image button
         pickImageButton.setOnClickListener(view -> {
@@ -97,6 +78,11 @@ public class ImageUploadActivity extends AppCompatActivity {
         });
 
         continueButton.setOnClickListener(view -> {
+            if (imageUri != null) {
+                // Defining the child of storageReference
+                StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
+                ref.putFile(imageUri);
+            }
             Intent intent = new Intent(ImageUploadActivity.this, sportChoiceActivity.class);
             startActivity(intent);
         });
