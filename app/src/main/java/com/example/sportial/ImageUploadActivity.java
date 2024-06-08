@@ -31,10 +31,11 @@ import java.util.UUID;
 public class ImageUploadActivity extends AppCompatActivity {
 
     private static final int REQUEST_IMAGE_PICK = 1;
-    private FirebaseAuth mAuth;
-    private FirebaseUser user;
+    FirebaseAuth mAuth;
+    FirebaseUser user;
     FirebaseStorage storage;
     StorageReference storageReference;
+    FirebaseFunctions func = new FirebaseFunctions();
     private ImageView profileImageView;
     private Button pickImageButton;
 
@@ -53,6 +54,8 @@ public class ImageUploadActivity extends AppCompatActivity {
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
 
         // Register the activity result launcher for picking an image
         ActivityResultLauncher<Intent> pickImageLauncher = registerForActivityResult(
@@ -79,9 +82,8 @@ public class ImageUploadActivity extends AppCompatActivity {
 
         continueButton.setOnClickListener(view -> {
             if (imageUri != null) {
-                // Defining the child of storageReference
-                StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
-                ref.putFile(imageUri);
+                String fileName = "ProfilePicture";
+                func.uploadPicture(imageUri,fileName);
             }
             Intent intent = new Intent(ImageUploadActivity.this, sportChoiceActivity.class);
             startActivity(intent);

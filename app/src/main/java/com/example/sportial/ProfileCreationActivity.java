@@ -29,6 +29,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
 
     private AutoCompleteTextView autoCompleteCity;
     private AutoCompleteTextView autoCompleteCountry;
+    FirebaseFunctions func = new FirebaseFunctions();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +101,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
                     String genderStr = genderSpinner.getSelectedItem().toString();
                     String countryStr = countryEditText.getText().toString();
                     String cityStr = cityEditText.getText().toString();
+                    func.uploadDetails(firstNameStr, lastNameStr, userBirthDay, userBirthMonth, userBirthYear, genderStr, countryStr, cityStr);
                     // Create an Intent object with the target activity class
                     Intent intent = new Intent(ProfileCreationActivity.this, ImageUploadActivity.class);
                     // Start the SignupActivity

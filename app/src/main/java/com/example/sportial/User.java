@@ -3,34 +3,29 @@ package com.example.sportial;
 import java.io.File;
 import java.util.HashMap;
 
-enum Gender {Female, Male, Other};
 
 public class User {
-    private final String email;
+    private final String userId;
     private int birthDay;
-    private int birthMonth;
+    private String birthMonth;
     private int birthYear;
     private final String firstName;
     private final String lastName;
     private final String city;
     private final String country;
-    private final Gender gender;
-    private final HashMap<SportType, Integer> sportTypes;
-    private final File profilePicture;
+    private final String gender;
 
-    public User(String email, String password, String firstName, String lastName, String city, String country, Gender gender, HashMap<SportType, Integer> sportTypes, File profilePicture) {
-        this.email = email;
+    public User(String userId, String firstName, String lastName,int birthDay, String birthMonth, int birthYear, String gender, String city, String country) {
+        this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.city = city;
         this.country = country;
         this.gender = gender;
-        this.sportTypes = sportTypes;
-        this.profilePicture = profilePicture;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserId() {
+        return userId;
     }
 
 
@@ -50,15 +45,9 @@ public class User {
         return country;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public HashMap<SportType, Integer> getSportTypes() {
-        return sportTypes;
-    }
 
-    public File getProfilePicture() {
-        return profilePicture;
-    }
 }

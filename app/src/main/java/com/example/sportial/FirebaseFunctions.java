@@ -1,35 +1,48 @@
 package com.example.sportial;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
 import android.net.Uri;
-import java.io.File;
 
 public class FirebaseFunctions {
 
-    private FirebaseDatabase database;
-    private FirebaseStorage storage;
+    FirebaseStorage storage;
+    StorageReference storageReference;
+    FirebaseAuth mAuth;
+    FirebaseUser firebaseUser;
+    // creating a variable for our
+    // Firebase Database.
+    FirebaseDatabase firebaseDatabase;
 
-    public FirebaseFunctions() {
-        database = FirebaseDatabase.getInstance();
+    // creating a variable for our Database
+    // Reference for Firebase.
+    DatabaseReference databaseReference;
+
+    public void uploadPicture(Uri imageUri, String imageFileName) {
         storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+        mAuth = FirebaseAuth.getInstance();
+        firebaseUser = mAuth.getCurrentUser();
+            // Defining the child of storageReference
+            StorageReference ref = storageReference.child(firebaseUser.getUid()+"/images/"+ imageFileName);
+            ref.putFile(imageUri);
     }
 
-    public void uploadPicture(String userId, Uri imageUri) {
-        // Create a reference to the Cloud Storage location
-        StorageReference storageRef = storage.getReference().child("user_pictures/" + userId + "/" + imageUri);
+    public void uploadDetails(String firstNameStr, String lastNameStr, int userBirthDay, String userBirthMonth, int userBirthYear,
+                              String genderStr, String countryStr, String cityStr){
+        mAuth = FirebaseAuth.getInstance();
+        firebaseUser = mAuth.getCurrentUser();
+        // creating a variable for
+        // our object class
+        User user = new User(firebaseUser.getUid(), firstNameStr, lastNameStr, userBirthDay, userBirthMonth, userBirthYear, genderStr, cityStr, countryStr);
+        firebaseDatabase = FirebaseDatabase.getInstance();
 
-        // Upload the picture to Cloud Storage
-        storageRef.putFile(imageUri)
-                .addOnSuccessListener(taskSnapshot -> {
-                    // Get the download URL of the uploaded picture
-                    storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                        // Store the picture URL in Realtime Database
-                        database.getReference("users/" + userId + "/picture_url").setValue(uri.toString());
-                    });
-                })
-                .addOnFailureListener(e -> {
-                    // Handle any errors that may occur
-                });
+        // below line is used to get reference for our database.
+        databaseReference = firebaseDatabase.getReference("Users/"+firebaseUser.getUid());
+        databaseReference.setValue(user);
     }
 }
