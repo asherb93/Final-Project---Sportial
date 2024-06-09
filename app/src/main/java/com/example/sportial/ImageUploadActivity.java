@@ -13,6 +13,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.sportial.UI.ProfilePageActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import com.example.sportial.UI.sportChoiceActivity;
@@ -82,10 +84,10 @@ public class ImageUploadActivity extends AppCompatActivity {
 
         continueButton.setOnClickListener(view -> {
             if (imageUri != null) {
-                String fileName = "ProfilePicture";
+                String fileName = "ProfilePicture.png";
                 func.uploadPicture(imageUri,fileName);
             }
-            Intent intent = new Intent(ImageUploadActivity.this, sportChoiceActivity.class);
+            Intent intent = new Intent(ImageUploadActivity.this, ProfilePageActivity.class);
             startActivity(intent);
         });
     }

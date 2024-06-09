@@ -45,4 +45,14 @@ public class FirebaseFunctions {
         databaseReference = firebaseDatabase.getReference("Users/"+firebaseUser.getUid());
         databaseReference.setValue(user);
     }
+
+    public Uri getPicture(String Uid, String imageFileName) {
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+        // Defining the child of storageReference
+        StorageReference ref = storageReference.child(Uid+"/images/"+imageFileName);
+        Uri imageUri = null;
+        ref.getFile(imageUri);
+        return imageUri;
+    }
 }

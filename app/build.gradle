@@ -72,6 +72,6 @@ dependencies {
         implementation'com.google.firebase:firebase-storage'
     //Adding gSon library to project
     implementation 'com.google.code.gson:gson:2.10.1'
-
+    implementation 'com.firebaseui:firebase-ui-storage:7.2.0'
 }
 

@@ -6,9 +6,9 @@ import java.util.HashMap;
 
 public class User {
     private final String userId;
-    private int birthDay;
-    private String birthMonth;
-    private int birthYear;
+    private final int birthDay;
+    private final String birthMonth;
+    private final int birthYear;
     private final String firstName;
     private final String lastName;
     private final String city;
@@ -19,6 +19,9 @@ public class User {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.birthDay = birthDay;
+        this.birthMonth = birthMonth;
+        this.birthYear = birthYear;
         this.city = city;
         this.country = country;
         this.gender = gender;
@@ -35,6 +38,16 @@ public class User {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public int getBirthDay() {
+        return birthDay;
+    }
+    public String getBirthMonth() {
+        return birthMonth;
+    }
+    public int getBirthYear() {
+        return birthYear;
     }
 
     public String getCity() {
