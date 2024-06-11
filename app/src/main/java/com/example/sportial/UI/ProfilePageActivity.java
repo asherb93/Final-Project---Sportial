@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
 import androidx.annotation.NonNull;
-import com.bumptech.glide.Glide;
 import android.content.Context;
 
 import androidx.activity.EdgeToEdge;
