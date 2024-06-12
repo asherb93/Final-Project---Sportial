@@ -1,6 +1,9 @@
 package com.example.sportial.UI;
 
 import android.os.Bundle;
+import android.util.Log;
+import androidx.annotation.NonNull;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.net.Uri;
 import android.content.Intent;
@@ -21,19 +24,27 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 
 
 import com.bumptech.glide.Glide;
 import com.example.sportial.Data.postCardModel;
 import com.example.sportial.FirebaseFunctions;
 import com.example.sportial.R;
+import com.example.sportial.User;
 import com.example.sportial.profilePostsFragment;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.database.ValueEventListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.storage.UploadTask;
@@ -43,7 +54,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 public class ProfilePageActivity extends AppCompatActivity {
-
+    private static final String TAG = "ReadAndWriteSnippets";
     ArrayList<postCardModel> postCardArray=new ArrayList<>();
 
     Button postsFragmentBtn;
@@ -53,10 +64,12 @@ public class ProfilePageActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     FirebaseStorage storage;
     StorageReference storageReference;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
     private ImageView profileBackgroundImageView;
-
     private ImageView profileImageView;
+    private TextView profileNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +103,24 @@ public class ProfilePageActivity extends AppCompatActivity {
             }
         });
 
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Users/"+firebaseUser.getUid());
+        ValueEventListener userListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                User user = dataSnapshot.getValue(User.class);
+                // ..
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+        databaseReference.addValueEventListener(userListener);
+
         postsFragmentBtn = findViewById(R.id.profile_posts_btn);
         postsFragmentBtn.setOnClickListener(v->{
                 replaceFragment(new profilePostsFragment());
@@ -113,6 +144,7 @@ public class ProfilePageActivity extends AppCompatActivity {
     {
         profileImageView = findViewById(R.id.imageView);
         profileBackgroundImageView = findViewById(R.id.profile_background_image);
+        profileNameTextView = findViewById(R.id.profile_name_TV);
     }
 
 

@@ -26,6 +26,9 @@ public class User {
         this.country = country;
         this.gender = gender;
     }
+    public User(){
+        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    }
 
     public String getUserId() {
         return userId;
@@ -38,6 +41,9 @@ public class User {
 
     public String getLastName() {
         return lastName;
+    }
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 
     public int getBirthDay() {

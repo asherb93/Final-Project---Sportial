@@ -45,6 +45,7 @@ public class ImageUploadActivity extends AppCompatActivity {
         pickImageButton = findViewById(R.id.uploadImageButton);
         continueButton = findViewById(R.id.image_upload_continue_btn);
 
+
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         mAuth = FirebaseAuth.getInstance();
