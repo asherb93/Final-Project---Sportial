@@ -23,6 +23,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 
+
+import com.bumptech.glide.Glide;
 import com.example.sportial.Data.postCardModel;
 import com.example.sportial.FirebaseFunctions;
 import com.example.sportial.R;
@@ -52,6 +54,8 @@ public class ProfilePageActivity extends AppCompatActivity {
     FirebaseStorage storage;
     StorageReference storageReference;
 
+    private ImageView profileBackgroundImageView;
+
     private ImageView profileImageView;
 
     @Override
@@ -59,12 +63,13 @@ public class ProfilePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile_screen);
-        profileImageView = findViewById(R.id.imageView);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        findViews();
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
         storage = FirebaseStorage.getInstance();
@@ -74,15 +79,16 @@ public class ProfilePageActivity extends AppCompatActivity {
         ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                profileImageView.setImageURI(uri);
+                Toast.makeText(ProfilePageActivity.this, "Profile Picture", Toast.LENGTH_SHORT).show();
+                Glide.with(ProfilePageActivity.this).load(uri).into(profileImageView);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(ProfilePageActivity.this, "Profile Picture", Toast.LENGTH_SHORT).show();
                 // Handle any errors
             }
         });
-        //profileImageView.setImageURI(profileImage);
 
         postsFragmentBtn = findViewById(R.id.profile_posts_btn);
         postsFragmentBtn.setOnClickListener(v->{
@@ -101,6 +107,12 @@ public class ProfilePageActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main,profilePostsFragment);
         fragmentTransaction.commit();
+    }
+
+    private void findViews()
+    {
+        profileImageView = findViewById(R.id.imageView);
+        profileBackgroundImageView = findViewById(R.id.profile_background_image);
     }
 
 

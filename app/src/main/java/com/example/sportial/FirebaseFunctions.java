@@ -1,12 +1,19 @@
 package com.example.sportial;
+import com.example.sportial.Data.UploadPictureCallback;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import android.net.Uri;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 public class FirebaseFunctions {
 
@@ -22,14 +29,27 @@ public class FirebaseFunctions {
     // Reference for Firebase.
     DatabaseReference databaseReference;
 
-    public void uploadPicture(Uri imageUri, String imageFileName) {
+    public void uploadPicture(Uri imageUri, String imageFileName, UploadPictureCallback callback) {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
             // Defining the child of storageReference
-            StorageReference ref = storageReference.child(firebaseUser.getUid()+"/images/"+ imageFileName);
-            ref.putFile(imageUri);
+        StorageReference ref = storageReference.child(firebaseUser.getUid()+"/images/"+ imageFileName);
+        UploadTask uploadTask = ref.putFile(imageUri);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // If upload fails:
+                callback.onUploadComplete(false);
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // After successful upload:
+                callback.onUploadComplete(true);
+            }
+        });
     }
 
     public void uploadDetails(String firstNameStr, String lastNameStr, int userBirthDay, String userBirthMonth, int userBirthYear,

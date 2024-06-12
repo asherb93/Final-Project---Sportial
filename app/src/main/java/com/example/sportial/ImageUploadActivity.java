@@ -1,38 +1,29 @@
 package com.example.sportial;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sportial.Data.UploadPictureCallback;
 import com.example.sportial.UI.ProfilePageActivity;
-import com.google.android.gms.tasks.OnSuccessListener;
 
-import com.example.sportial.UI.sportChoiceActivity;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import java.io.IOException;
-import java.util.UUID;
 
 public class ImageUploadActivity extends AppCompatActivity {
 
     private static final int REQUEST_IMAGE_PICK = 1;
+
+    private static boolean isUploaded = false;
     FirebaseAuth mAuth;
     FirebaseUser user;
     FirebaseStorage storage;
@@ -83,13 +74,24 @@ public class ImageUploadActivity extends AppCompatActivity {
         });
 
         continueButton.setOnClickListener(view -> {
-            if (imageUri != null) {
                 String fileName = "ProfilePicture.png";
-                func.uploadPicture(imageUri,fileName);
+                func.uploadPicture(imageUri, fileName, new UploadPictureCallback() {
+                    @Override
+                    public void onUploadComplete(boolean success) {
+                        if (success) {
+                            // Image uploaded successfully, start next activity
+                            Toast.makeText(ImageUploadActivity.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ImageUploadActivity.this, ProfilePageActivity.class);
+                            startActivity(intent);
+                        } else {
+                            // Handle upload failure (e.g., show an error message)
+                            Toast.makeText(ImageUploadActivity.this, "Upload failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
-            Intent intent = new Intent(ImageUploadActivity.this, ProfilePageActivity.class);
-            startActivity(intent);
-        });
+        );
+
     }
 }
 
