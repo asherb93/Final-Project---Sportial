@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.sportial.Data.UploadPictureCallback;
 import com.example.sportial.UI.ProfilePageActivity;
 
+import com.example.sportial.UI.sportChoiceActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
@@ -82,7 +83,7 @@ public class ImageUploadActivity extends AppCompatActivity {
                         if (success) {
                             // Image uploaded successfully, start next activity
                             Toast.makeText(ImageUploadActivity.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(ImageUploadActivity.this, ProfilePageActivity.class);
+                            Intent intent = new Intent(ImageUploadActivity.this, sportChoiceActivity.class);
                             startActivity(intent);
                         } else {
                             // Handle upload failure (e.g., show an error message)

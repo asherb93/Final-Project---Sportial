@@ -75,4 +75,14 @@ public class FirebaseFunctions {
         ref.getFile(imageUri);
         return imageUri;
     }
+
+    public void uploadSport(String sportName){
+        mAuth = FirebaseAuth.getInstance();
+        firebaseUser = mAuth.getCurrentUser();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        // below line is used to get reference for our database.
+        databaseReference = firebaseDatabase.getReference("Sports/"+sportName+"/"+firebaseUser.getUid());
+        //level is constant until Ahser will add the levels in the view
+        databaseReference.setValue("Level beginner");
+    }
 }

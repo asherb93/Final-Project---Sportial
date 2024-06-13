@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sportial.Adapter.SC_RV_Adapter;
+import com.example.sportial.FirebaseFunctions;
 import com.example.sportial.R;
 import com.example.sportial.Data.sportCardModel;
 
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 
 public class sportChoiceActivity extends AppCompatActivity {
 
+    FirebaseFunctions func = new FirebaseFunctions();
     ArrayList<sportCardModel> sportCards=new ArrayList<>();
     ConstraintLayout layout;
     CardView sportCD;
@@ -80,6 +82,7 @@ public class sportChoiceActivity extends AppCompatActivity {
     private void initListeners() {
             continueBtn.setOnClickListener(v -> {
                 try{
+                    func.uploadSport(sportName.getText().toString());
                     Toast.makeText(this, "You choose" + sportName.getText().toString(), Toast.LENGTH_SHORT).show();
                     Intent intent=new Intent(this,ProfilePageActivity.class);
                     startActivity(intent);
