@@ -26,8 +26,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
-
-import com.bumptech.glide.*;
+import com.bumptech.glide.Glide;
 import com.example.sportial.Data.postCardModel;
 import com.example.sportial.FirebaseFunctions;
 import com.example.sportial.R;
