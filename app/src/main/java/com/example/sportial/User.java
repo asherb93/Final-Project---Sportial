@@ -5,16 +5,18 @@ import java.util.HashMap;
 
 
 public class User {
-    private final String userId;
-    private final int birthDay;
-    private final String birthMonth;
-    private final int birthYear;
-    private final String firstName;
-    private final String lastName;
-    private final String city;
-    private final String country;
-    private final String gender;
+      String userId;
+      int birthDay;
+      String birthMonth;
+      int birthYear;
+      String firstName;
+      String lastName;
+      String city;
+      String country;
+      String gender;
+    public User() {
 
+    }
     public User(String userId, String firstName, String lastName,int birthDay, String birthMonth, int birthYear, String gender, String city, String country) {
         this.userId = userId;
         this.firstName = firstName;
@@ -26,9 +28,7 @@ public class User {
         this.country = country;
         this.gender = gender;
     }
-    public User(){
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
-    }
+
 
     public String getUserId() {
         return userId;

@@ -2,7 +2,8 @@ package com.example.sportial.UI;
 
 import android.os.Bundle;
 import android.util.Log;
-import androidx.annotation.NonNull;
+
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.net.Uri;
@@ -26,7 +27,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
 
-import com.bumptech.glide.Glide;
+import com.bumptech.glide.*;
 import com.example.sportial.Data.postCardModel;
 import com.example.sportial.FirebaseFunctions;
 import com.example.sportial.R;
@@ -67,9 +68,9 @@ public class ProfilePageActivity extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
-    private ImageView profileBackgroundImageView;
-    private ImageView profileImageView;
-    private TextView profileNameTextView;
+    ImageView profileBackgroundImageView;
+    ImageView profileImageView;
+    TextView profileNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +111,8 @@ public class ProfilePageActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 User user = dataSnapshot.getValue(User.class);
-                // ..
+                profileNameTextView.setText(user.getFullName());
+                profileNameTextView.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -145,6 +147,7 @@ public class ProfilePageActivity extends AppCompatActivity {
         profileImageView = findViewById(R.id.imageView);
         profileBackgroundImageView = findViewById(R.id.profile_background_image);
         profileNameTextView = findViewById(R.id.profile_name_TV);
+        profileNameTextView.setVisibility(View.INVISIBLE);
     }
 
 
