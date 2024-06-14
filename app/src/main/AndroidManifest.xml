@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Sportial"
         tools:ignore="WrongManifestParent,WrongManifestPaxxrent"
         tools:targetApi="31">
+        <activity
+            android:name=".UI.HomePageActivity"
+            android:exported="false" />
         <activity
             android:name=".UI.ProfilePageActivity"
             android:exported="true" />

@@ -5,7 +5,7 @@ import android.widget.Toast;
 import android.widget.EditText;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
-import android.util.Log;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,12 +15,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.sportial.UI.HomePageActivity;
 import com.example.sportial.UI.ProfilePageActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     private EditText mInputEmail, mInputPassword;
