@@ -1,4 +1,4 @@
-package com.example.sportial;
+package com.example.sportial.Fragments;
 
 import android.os.Bundle;
 
@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.sportial.Adapter.PV_RV_Adapter;
 import com.example.sportial.Data.postCardModel;
+import com.example.sportial.R;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,7 @@ public class profilePostsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile_posts, container, false);
+
         postRecyclerView = view.findViewById(R.id.user_posts_RV);
         setPostCardArray(postCardModelArrayList);
         PV_RV_Adapter adapter = new PV_RV_Adapter(requireContext(), postCardModelArrayList);

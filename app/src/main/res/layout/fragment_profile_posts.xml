@@ -7,6 +7,6 @@
     android:layout_height="0dp"
     android:background="@color/lightGrey"
     android:id="@+id/user_posts_RV"
-    tools:context=".profilePostsFragment">
+    tools:context=".Fragments.profilePostsFragment">
 
 </androidx.recyclerview.widget.RecyclerView>

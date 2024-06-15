@@ -27,6 +27,7 @@ import com.example.sportial.Adapter.SC_RV_Adapter;
 import com.example.sportial.FirebaseFunctions;
 import com.example.sportial.R;
 import com.example.sportial.Data.sportCardModel;
+import com.example.sportial.sportialActivity;
 
 import java.util.ArrayList;
 
@@ -84,7 +85,7 @@ public class sportChoiceActivity extends AppCompatActivity {
                 try{
                     func.uploadSport(sportName.getText().toString());
                     Toast.makeText(this, "You choose" + sportName.getText().toString(), Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(this,ProfilePageActivity.class);
+                    Intent intent=new Intent(this, sportialActivity.class);
                     startActivity(intent);
                 }
                 catch (Exception e){

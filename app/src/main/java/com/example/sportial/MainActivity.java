@@ -16,7 +16,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.sportial.UI.HomePageActivity;
-import com.example.sportial.UI.ProfilePageActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -94,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                                             "Sign in failed",
                                             Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Intent intent = new Intent(MainActivity.this, ProfilePageActivity.class);
+                                    Intent intent = new Intent(MainActivity.this, sportialActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }

@@ -12,7 +12,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sportial.Data.UploadPictureCallback;
-import com.example.sportial.UI.ProfilePageActivity;
 
 import com.example.sportial.UI.sportChoiceActivity;
 import com.google.firebase.auth.FirebaseAuth;

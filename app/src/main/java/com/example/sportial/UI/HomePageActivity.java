@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.sportial.R;
+import com.example.sportial.sportialActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -55,7 +56,7 @@ public class HomePageActivity extends AppCompatActivity {
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == MENU_ITEM_PROFILE) {
-                startActivity(new Intent(HomePageActivity.this, ProfilePageActivity.class));
+                startActivity(new Intent(HomePageActivity.this, sportialActivity.class));
                 return true;
             }
             else if (item.getItemId() == MENU_ITEM_SEARCH) {
