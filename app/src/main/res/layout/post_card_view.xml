@@ -49,19 +49,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.cardview.widget.CardView
+                <ImageView
+                    android:id="@+id/friendProfilePictureIV"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    app:cardCornerRadius="250dp">
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/basketball_background" />
 
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/basketball_background" />
-
-                </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
 
             <LinearLayout

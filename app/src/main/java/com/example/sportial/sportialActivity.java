@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.sportial.Fragments.ProfilePageFragment;
+import com.example.sportial.Fragments.SearchPageFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class sportialActivity extends AppCompatActivity {
@@ -49,6 +50,13 @@ public class sportialActivity extends AppCompatActivity {
                 Fragment profileFragment = new ProfilePageFragment();
                 FragmentManager profileFragmentManager = getSupportFragmentManager();
                 profileFragmentManager.beginTransaction().replace(R.id.sportial_fragment_container, profileFragment).commit();
+                return true;
+            }
+            if (item.getItemId() == MENU_ITEM_SEARCH) {
+                //change to profile fragment
+                Fragment searchPageFragment = new SearchPageFragment();
+                FragmentManager profileFragmentManager = getSupportFragmentManager();
+                profileFragmentManager.beginTransaction().replace(R.id.sportial_fragment_container, searchPageFragment).commit();
                 return true;
             }
             return false;

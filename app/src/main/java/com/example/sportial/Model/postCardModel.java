@@ -1,4 +1,4 @@
-package com.example.sportial.Data;
+package com.example.sportial.Model;
 
 import android.widget.ImageView;
 

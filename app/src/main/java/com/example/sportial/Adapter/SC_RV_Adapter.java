@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sportial.R;
-import com.example.sportial.Data.sportCardModel;
+import com.example.sportial.Model.sportCardModel;
 
 import java.util.ArrayList;
 

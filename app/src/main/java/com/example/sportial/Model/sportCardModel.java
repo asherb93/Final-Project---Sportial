@@ -1,4 +1,4 @@
-package com.example.sportial.Data;
+package com.example.sportial.Model;
 
 public class sportCardModel {
     String sportName;

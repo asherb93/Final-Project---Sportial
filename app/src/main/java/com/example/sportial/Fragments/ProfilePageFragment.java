@@ -1,6 +1,5 @@
 package com.example.sportial.Fragments;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,16 +10,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
-import com.example.sportial.Data.postCardModel;
+import com.example.sportial.Model.postCardModel;
 import com.example.sportial.FirebaseFunctions;
 import com.example.sportial.R;
 import com.example.sportial.Data.User;

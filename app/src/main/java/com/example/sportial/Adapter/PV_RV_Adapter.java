@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sportial.R;
-import com.example.sportial.Data.postCardModel;
+import com.example.sportial.Model.postCardModel;
 
 import java.util.ArrayList;
 

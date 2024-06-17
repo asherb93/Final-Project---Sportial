@@ -26,7 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sportial.Adapter.SC_RV_Adapter;
 import com.example.sportial.FirebaseFunctions;
 import com.example.sportial.R;
-import com.example.sportial.Data.sportCardModel;
+import com.example.sportial.Model.sportCardModel;
 import com.example.sportial.sportialActivity;
 
 import java.util.ArrayList;

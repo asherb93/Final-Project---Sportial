@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.sportial.Adapter.PV_RV_Adapter;
-import com.example.sportial.Data.postCardModel;
+import com.example.sportial.Model.postCardModel;
 import com.example.sportial.R;
 
 import java.util.ArrayList;
