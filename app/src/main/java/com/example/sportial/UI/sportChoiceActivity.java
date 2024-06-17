@@ -69,11 +69,6 @@ public class sportChoiceActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         findViews();
         initListeners();
-
-
-
-
-
     }
 
     private void findViews() {

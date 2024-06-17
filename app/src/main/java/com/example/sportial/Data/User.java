@@ -1,6 +1,7 @@
-package com.example.sportial;
+package com.example.sportial.Data;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -12,12 +13,11 @@ public class User {
       String firstName;
       String lastName;
       String city;
-      String country;
       String gender;
     public User() {
 
     }
-    public User(String userId, String firstName, String lastName,int birthDay, String birthMonth, int birthYear, String gender, String city, String country) {
+    public User(String userId, String firstName, String lastName,int birthDay, String birthMonth, int birthYear, String gender, String city) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -25,7 +25,6 @@ public class User {
         this.birthMonth = birthMonth;
         this.birthYear = birthYear;
         this.city = city;
-        this.country = country;
         this.gender = gender;
     }
 
@@ -60,13 +59,9 @@ public class User {
         return city;
     }
 
-    public String getCountry() {
-        return country;
-    }
 
     public String getGender() {
         return gender;
     }
-
 
 }

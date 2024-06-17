@@ -1,19 +1,36 @@
 package com.example.sportial;
+
+import android.widget.ImageView;
+import android.view.View;
+import android.net.Uri;
+import android.content.Context;
+import android.widget.Toast;
+import android.util.Log;
+import com.bumptech.glide.Glide;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+
 import com.example.sportial.Data.UploadPictureCallback;
+import com.example.sportial.Data.User;
+import com.example.sportial.Data.postCardModel;
+import com.example.sportial.Fragments.ProfilePageFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import android.net.Uri;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 
 public class FirebaseFunctions {
 
@@ -53,12 +70,12 @@ public class FirebaseFunctions {
     }
 
     public void uploadDetails(String firstNameStr, String lastNameStr, int userBirthDay, String userBirthMonth, int userBirthYear,
-                              String genderStr, String countryStr, String cityStr){
+                              String genderStr, String cityStr){
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
         // creating a variable for
         // our object class
-        User user = new User(firebaseUser.getUid(), firstNameStr, lastNameStr, userBirthDay, userBirthMonth, userBirthYear, genderStr, cityStr, countryStr);
+        User user = new User(firebaseUser.getUid(), firstNameStr, lastNameStr, userBirthDay, userBirthMonth, userBirthYear, genderStr, cityStr);
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         // below line is used to get reference for our database.
@@ -66,15 +83,6 @@ public class FirebaseFunctions {
         databaseReference.setValue(user);
     }
 
-    public Uri getPicture(String Uid, String imageFileName) {
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
-        // Defining the child of storageReference
-        StorageReference ref = storageReference.child(Uid+"/images/"+imageFileName);
-        Uri imageUri = null;
-        ref.getFile(imageUri);
-        return imageUri;
-    }
 
     public void uploadSport(String sportName){
         mAuth = FirebaseAuth.getInstance();
@@ -85,4 +93,25 @@ public class FirebaseFunctions {
         //level is constant until Ahser will add the levels in the view
         databaseReference.setValue("Level beginner");
     }
+
+    public void uploadPost(postCardModel post){
+        mAuth = FirebaseAuth.getInstance();
+        firebaseUser = mAuth.getCurrentUser();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        // below line is used to get reference for our database.
+        databaseReference = firebaseDatabase.getReference("Posts/"+firebaseUser.getUid()+"/"+post.getPostid());
+        databaseReference.setValue(post);
+    }
+
+    public void uploadFriend(User friend){
+        mAuth = FirebaseAuth.getInstance();
+        firebaseUser = mAuth.getCurrentUser();
+        // creating a variable for
+        // our object class
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        // below line is used to get reference for our database.
+        databaseReference = firebaseDatabase.getReference("Users/"+firebaseUser.getUid()+"/Friends/"+friend.getUserId());
+        databaseReference.setValue(friend);
+    }
+
 }

@@ -154,14 +154,6 @@
         android:orientation="vertical">
 
         <AutoCompleteTextView
-            android:id="@+id/ac_country"
-            android:layout_width="match_parent"
-            android:fontFamily="monospace"
-
-            android:layout_height="wrap_content"
-            android:hint="Enter a Country" />
-
-        <AutoCompleteTextView
             android:id="@+id/ac_city"
             android:fontFamily="monospace"
 

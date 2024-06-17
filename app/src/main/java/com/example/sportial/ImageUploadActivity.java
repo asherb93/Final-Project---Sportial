@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -30,6 +31,7 @@ public class ImageUploadActivity extends AppCompatActivity {
     StorageReference storageReference;
     FirebaseFunctions func = new FirebaseFunctions();
     private ImageView profileImageView;
+
     private Button pickImageButton;
 
     private Button continueButton;

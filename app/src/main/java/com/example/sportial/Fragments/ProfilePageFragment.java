@@ -1,6 +1,6 @@
 package com.example.sportial.Fragments;
 
-import android.content.Intent;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,20 +11,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.sportial.Data.postCardModel;
 import com.example.sportial.FirebaseFunctions;
 import com.example.sportial.R;
-import com.example.sportial.User;
+import com.example.sportial.Data.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -83,15 +82,14 @@ public class ProfilePageFragment extends Fragment {
 
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
+        String imageFileName = "ProfilePicture.png";
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        String imageFileName = "ProfilePicture.png";
         StorageReference ref = storageReference.child(firebaseUser.getUid() + "/images/" + imageFileName);
         ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -126,17 +124,7 @@ public class ProfilePageFragment extends Fragment {
         };
         databaseReference.addValueEventListener(userListener);
 
-
-
     }
-
-
-
-
-
-
-
-
 
     private void findViews(View view) {
         profileImageView = view.findViewById(R.id.imageView);
