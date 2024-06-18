@@ -6,9 +6,9 @@ public class friendCardModel {
 
     private String userName ;
     private String userLocation;
-    private int userProfilePic;
+    private Uri userProfilePic;
 
-    public friendCardModel(String userName, String userLocation, int userProfilePic) {
+    public friendCardModel(String userName, String userLocation, Uri userProfilePic) {
         this.userName = userName;
         this.userLocation = userLocation;
         this.userProfilePic = userProfilePic;
@@ -22,11 +22,11 @@ public class friendCardModel {
         this.userLocation = userLocation;
     }
 
-    public int getUserProfilePic() {
+    public Uri getUserProfilePic() {
         return userProfilePic;
     }
 
-    public void setUserProfilePic(int userProfilePic) {
+    public void setUserProfilePic(Uri userProfilePic) {
         this.userProfilePic = userProfilePic;
     }
 

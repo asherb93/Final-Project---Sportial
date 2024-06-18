@@ -18,6 +18,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.sportial.UI.sportChoiceActivity;
+import com.example.sportial.Data.User;
 import com.google.android.gms.common.api.Response;
 
 import java.util.List;
@@ -78,9 +80,11 @@ public class ProfileCreationActivity extends AppCompatActivity {
                     int userBirthYear = Integer.parseInt(yearSpinner.getSelectedItem().toString());
                     String genderStr = genderSpinner.getSelectedItem().toString();
                     String cityStr = cityEditText.getText().toString();
-                    func.uploadDetails(firstNameStr, lastNameStr, userBirthDay, userBirthMonth, userBirthYear, genderStr, cityStr);
+                    User user = new User(firstNameStr, lastNameStr, userBirthDay, userBirthMonth, userBirthYear, genderStr, cityStr);
+                    //func.uploadDetails(firstNameStr, lastNameStr, userBirthDay, userBirthMonth, userBirthYear, genderStr, cityStr);
                     // Create an Intent object with the target activity class
-                    Intent intent = new Intent(ProfileCreationActivity.this, ImageUploadActivity.class);
+                    Intent intent = new Intent(ProfileCreationActivity.this, sportChoiceActivity.class);
+                    intent.putExtra("user", user);
                     // Start the SignupActivity
                     startActivity(intent);
                 }

@@ -3,9 +3,9 @@ package com.example.sportial.Data;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.io.Serializable;
 
-
-public class User {
+public class User implements Serializable{
       String userId;
       int birthDay;
       String birthMonth;
@@ -14,11 +14,11 @@ public class User {
       String lastName;
       String city;
       String gender;
+      String sportType;
     public User() {
 
     }
-    public User(String userId, String firstName, String lastName,int birthDay, String birthMonth, int birthYear, String gender, String city) {
-        this.userId = userId;
+    public User(String firstName, String lastName,int birthDay, String birthMonth, int birthYear, String gender, String city) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDay = birthDay;
@@ -31,6 +31,9 @@ public class User {
 
     public String getUserId() {
         return userId;
+    }
+    public void setUserId(String userId) {
+       this.userId = userId;
     }
 
 
@@ -62,6 +65,12 @@ public class User {
 
     public String getGender() {
         return gender;
+    }
+    public String getSportType() {
+        return sportType;
+    }
+    public void setSportType(String sportType) {
+        this.sportType = sportType;
     }
 
 }

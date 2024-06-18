@@ -25,13 +25,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sportial.Adapter.SC_RV_Adapter;
 import com.example.sportial.FirebaseFunctions;
+import com.example.sportial.ImageUploadActivity;
 import com.example.sportial.R;
+import com.example.sportial.Data.User;
 import com.example.sportial.Model.sportCardModel;
 import com.example.sportial.sportialActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 import java.util.ArrayList;
+import androidx.annotation.NonNull;
 
 public class sportChoiceActivity extends AppCompatActivity {
+
 
     FirebaseFunctions func = new FirebaseFunctions();
     ArrayList<sportCardModel> sportCards=new ArrayList<>();
@@ -52,6 +64,8 @@ public class sportChoiceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        User user = (User) intent.getSerializableExtra("user");
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sport_choose);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -60,27 +74,28 @@ public class sportChoiceActivity extends AppCompatActivity {
             return insets;
         });
 
-
-
         RecyclerView recyclerView = findViewById(R.id.sportRV);
         setUpSportModels(sportCards);
         SC_RV_Adapter adapter = new SC_RV_Adapter(this,sportCards);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         findViews();
-        initListeners();
+        initListeners(user);
     }
 
     private void findViews() {
         continueBtn=findViewById(id.continueButton);
     }
 
-    private void initListeners() {
+    private void initListeners(User user) {
             continueBtn.setOnClickListener(v -> {
                 try{
-                    func.uploadSport(sportName.getText().toString());
-                    Toast.makeText(this, "You choose" + sportName.getText().toString(), Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(this, sportialActivity.class);
+                    String sportName = this.sportName.getText().toString();
+                    user.setSportType(sportName);
+                    func.uploadDetails(user);
+                    func.uploadSport(user);
+                    Toast.makeText(this, "You choose" + sportName, Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(this, ImageUploadActivity.class);
                     startActivity(intent);
                 }
                 catch (Exception e){

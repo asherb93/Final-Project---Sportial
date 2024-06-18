@@ -84,7 +84,7 @@ public class ImageUploadActivity extends AppCompatActivity {
                         if (success) {
                             // Image uploaded successfully, start next activity
                             Toast.makeText(ImageUploadActivity.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(ImageUploadActivity.this, sportChoiceActivity.class);
+                            Intent intent = new Intent(ImageUploadActivity.this, sportialActivity.class);
                             startActivity(intent);
                         } else {
                             // Handle upload failure (e.g., show an error message)

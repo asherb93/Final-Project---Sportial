@@ -57,29 +57,28 @@ public class FirebaseFunctions {
         });
     }
 
-    public void uploadDetails(String firstNameStr, String lastNameStr, int userBirthDay, String userBirthMonth, int userBirthYear,
-                              String genderStr, String cityStr){
+    public void uploadDetails(User user){
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
         // creating a variable for
         // our object class
-        User user = new User(firebaseUser.getUid(), firstNameStr, lastNameStr, userBirthDay, userBirthMonth, userBirthYear, genderStr, cityStr);
         firebaseDatabase = FirebaseDatabase.getInstance();
-
+        user.setUserId(firebaseUser.getUid());
         // below line is used to get reference for our database.
         databaseReference = firebaseDatabase.getReference("Users/"+firebaseUser.getUid());
         databaseReference.setValue(user);
     }
 
 
-    public void uploadSport(String sportName){
+    public void uploadSport(User user){
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
         // below line is used to get reference for our database.
-        databaseReference = firebaseDatabase.getReference("Sports/"+sportName+"/"+firebaseUser.getUid());
+        databaseReference = firebaseDatabase.getReference("Sports/"+user.getSportType()+"/"+firebaseUser.getUid());
         //level is constant until Ahser will add the levels in the view
-        databaseReference.setValue("Level beginner");
+        databaseReference.setValue(user);
+
     }
 
     public void uploadPost(postCardModel post){
