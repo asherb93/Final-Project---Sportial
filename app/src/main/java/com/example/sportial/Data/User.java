@@ -18,6 +18,7 @@ public class User implements Serializable{
     public User() {
 
     }
+
     public User(String firstName, String lastName,int birthDay, String birthMonth, int birthYear, String gender, String city) {
         this.firstName = firstName;
         this.lastName = lastName;

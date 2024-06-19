@@ -271,6 +271,9 @@
     <string name="full_name">Full Name</string>
     <string name="location">Location</string>
     <string name="send_friend_request">Send friend request</string>
+    <string name="request_sent">Request Sent</string>
+    <string name="Unfriend" />
+    <string name="unfriend">Unfriend</string>
 
 
 </resources>

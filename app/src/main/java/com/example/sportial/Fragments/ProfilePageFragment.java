@@ -61,7 +61,13 @@ public class ProfilePageFragment extends Fragment {
 
     Fragment postsFragment;
 
+    String userIDref;
+
+
     BottomNavigationView bottomNavigationView;
+
+    private static final int MENU_ITEM_POST = R.id.nav_posts;
+    private static final int MENU_ITEM_FRIENDS = R.id.nav_friends;
 
 
     @Nullable
@@ -71,9 +77,24 @@ public class ProfilePageFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_profile_page, container, false);
         findViews(view);
 
-        Fragment postsFragment = new profilePostsFragment();
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.profile_fragment_container, postsFragment).commit();
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == MENU_ITEM_POST) {
+                //change to profile fragment
+                Fragment postsFragment = new profilePostsFragment();
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.replace(R.id.profile_fragment_container, postsFragment).commit();
+                return true;
+            }
+            if (item.getItemId() == MENU_ITEM_FRIENDS) {
+                //change to profile fragment
+                Fragment profileFriendsFragment = new profilefriendsfragment();
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.replace(R.id.profile_fragment_container, profileFriendsFragment).commit();
+                return true;
+            }
+            return false;
+        });
+
 
         return view;
 
@@ -82,6 +103,11 @@ public class ProfilePageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        showUserProfile();
+    }
+
+    void showUserProfile(){
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
         String imageFileName = "ProfilePicture.png";

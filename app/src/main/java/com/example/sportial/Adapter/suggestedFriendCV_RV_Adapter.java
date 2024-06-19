@@ -1,5 +1,6 @@
 package com.example.sportial.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,32 +13,31 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.sportial.Fragments.ProfilePageFragment;
 import com.example.sportial.Model.friendCardModel;
 import com.example.sportial.R;
 
 import java.util.ArrayList;
 
-public class FriendCV_RV_Adapter extends RecyclerView.Adapter<FriendCV_RV_Adapter.MyViewHolder> {
+public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggestedFriendCV_RV_Adapter.MyViewHolder> {
 
     Context context;
     ArrayList<friendCardModel> suggestedFriendsArrayList;
 
-    public FriendCV_RV_Adapter(Context context, ArrayList<friendCardModel> suggestedFriendsArrayList) {
+    public suggestedFriendCV_RV_Adapter(Context context, ArrayList<friendCardModel> suggestedFriendsArrayList) {
         this.context = context;
         this.suggestedFriendsArrayList = suggestedFriendsArrayList;
     }
 
     @NonNull
     @Override
-    public FriendCV_RV_Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public suggestedFriendCV_RV_Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.friend_card_view, parent, false);
-        return new FriendCV_RV_Adapter.MyViewHolder(view);
+        return new suggestedFriendCV_RV_Adapter.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FriendCV_RV_Adapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull suggestedFriendCV_RV_Adapter.MyViewHolder holder, int position) {
         holder.friendNameTV.setText(suggestedFriendsArrayList.get(position).getUserName());
         holder.friendLocationTV.setText(suggestedFriendsArrayList.get(position).getUserLocation());
         Glide.with(holder.friendProfileIV).load(suggestedFriendsArrayList.get(position).getUserProfilePic()).into(holder.friendProfileIV);
@@ -63,9 +63,10 @@ public class FriendCV_RV_Adapter extends RecyclerView.Adapter<FriendCV_RV_Adapte
             requestFriendBtn = itemView.findViewById(R.id.button);
 
             requestFriendBtn.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("ResourceAsColor")
                 @Override
                 public void onClick(View v) {
-                    requestFriendBtn.setText("Request Sent");
+                    requestFriendBtn.setText(R.string.request_sent);
                     requestFriendBtn.setBackgroundColor(R.color.lightGrey);
                 }
             });

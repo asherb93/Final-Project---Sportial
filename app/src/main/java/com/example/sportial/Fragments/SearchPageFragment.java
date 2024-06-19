@@ -12,10 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.sportial.Adapter.FriendCV_RV_Adapter;
+import com.example.sportial.Adapter.suggestedFriendCV_RV_Adapter;
 import com.example.sportial.Data.User;
 import com.example.sportial.FirebaseFunctions;
 import com.example.sportial.Model.friendCardModel;
@@ -34,17 +32,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 
 public class SearchPageFragment extends Fragment {
 
     ArrayList<friendCardModel> suggestedFriendsList = new ArrayList<>();
 
     RecyclerView friendsRecyclerView;
-    FriendCV_RV_Adapter adapter;
+    suggestedFriendCV_RV_Adapter adapter;
 
     View view;
 
@@ -151,21 +145,21 @@ public class SearchPageFragment extends Fragment {
             ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                    Toast.makeText(getContext(), "Profile Picture", Toast.LENGTH_SHORT).show();
                     User friendDetails= user;
                     friendCardModel friend = new friendCardModel(friendDetails.getFullName(), friendDetails.getCity(),uri);
                     suggestedFriendsList.add(friend);
+                    adapter = new suggestedFriendCV_RV_Adapter(getActivity(), suggestedFriendsList);
+                    friendsRecyclerView.setAdapter(adapter);
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    Toast.makeText(getContext(), "Profile Picture", Toast.LENGTH_SHORT).show();
                     // Handle any errors
                 }
             });
+
         }
-        adapter = new FriendCV_RV_Adapter(getActivity(), suggestedFriendsList);
-        friendsRecyclerView.setAdapter(adapter);
     }
 
 }

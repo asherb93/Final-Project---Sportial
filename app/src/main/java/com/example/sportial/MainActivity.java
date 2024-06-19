@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-         Button btnSignUp = findViewById(R.id.signup_button);
-         Button btnLogin = findViewById(R.id.login_button);
+        Button btnSignUp = findViewById(R.id.signup_button);
+        Button btnLogin = findViewById(R.id.login_button);
         mInputEmail = (EditText) findViewById(R.id.editTextTextEmailAddress);
         mInputPassword = (EditText) findViewById(R.id.editTextTextPassword);
 

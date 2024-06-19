@@ -26,6 +26,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+
+
         app:menu="@menu/social_media_menu" >
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>

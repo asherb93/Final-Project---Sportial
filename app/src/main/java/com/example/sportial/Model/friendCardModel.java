@@ -14,6 +14,12 @@ public class friendCardModel {
         this.userProfilePic = userProfilePic;
     }
 
+    public friendCardModel(String userName, String userLocation) {
+        this.userName = userName;
+        this.userLocation = userLocation;
+    }
+
+
     public String getUserLocation() {
         return userLocation;
     }
