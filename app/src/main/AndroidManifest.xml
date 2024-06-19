@@ -17,6 +17,9 @@
         tools:ignore="WrongManifestParent,WrongManifestPaxxrent"
         tools:targetApi="31">
         <activity
+            android:name=".UI.ChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".sportialActivity"
             android:exported="true" />
         <activity
