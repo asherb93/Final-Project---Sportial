@@ -63,7 +63,7 @@ public class ProfilePageFragment extends Fragment {
 
     String userIDref;
 
-
+    Button bottomChatBtn;
     BottomNavigationView bottomNavigationView;
 
     private static final int MENU_ITEM_POST = R.id.nav_posts;
@@ -76,6 +76,7 @@ public class ProfilePageFragment extends Fragment {
 
         View view= inflater.inflate(R.layout.fragment_profile_page, container, false);
         findViews(view);
+
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == MENU_ITEM_POST) {
@@ -155,6 +156,7 @@ public class ProfilePageFragment extends Fragment {
         profileNameTextView = view.findViewById(R.id.profile_name_TV);
         profileNameTextView.setVisibility(View.INVISIBLE);
         bottomNavigationView = view.findViewById(R.id.profile_menu);
+        bottomChatBtn = view.findViewById(R.id.profile_message_btn);
 
     }
 }
