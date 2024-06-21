@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             .setRegion(region)
             .setAppId(appID)
             .setAuthKey(authKey)
-            .subscribePresenceForAllUsers().build();
+            .subscribePresenceForFriends().build();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
