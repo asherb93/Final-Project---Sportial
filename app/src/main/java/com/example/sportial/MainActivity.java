@@ -3,7 +3,9 @@ package com.example.sportial;
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.CheckBox;
 import android.widget.Toast;
 import android.widget.EditText;
 import android.text.TextUtils;
@@ -31,8 +33,21 @@ import com.cometchat.chatuikit.shared.cometchatuikit.CometChatUIKit;
 import com.cometchat.chatuikit.shared.cometchatuikit.UIKitSettings;
 
 public class MainActivity extends AppCompatActivity {
+
+    // Constants for SharedPreferences keys
+    public static final String PREF_NAME = "MyPreferences";
+    public static final String EMAIL_KEY = "email_key";
+    public static final String PASSWORD_KEY = "password_key";
+
     private EditText mInputEmail, mInputPassword;
     private FirebaseAuth mAuth;
+    private CheckBox rememberMeCB;
+    private Button btnSignUp ;
+    private Button btnLogin ;
+    private String email;
+    private  String password;
+
+    SharedPreferences sp;
 
     String appID = "2595125acb2dbc47"; // Replace with your App ID
     String region = "eu"; // Replace with your App Region ("EU" or "US")
@@ -58,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
         CometChatUIKit.init(this, uiKitSettings, new CometChat.CallbackListener<String>() {
             @Override
             public void onSuccess(String successString) {
-                //   /_Your action after initializing CometChat_/
             }
 
             @Override
@@ -66,10 +80,8 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        Button btnSignUp = findViewById(R.id.signup_button);
-        Button btnLogin = findViewById(R.id.login_button);
-        mInputEmail = (EditText) findViewById(R.id.editTextTextEmailAddress);
-        mInputPassword = (EditText) findViewById(R.id.editTextTextPassword);
+        findViews();
+        loadEmailPassword();
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,9 +97,8 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = mInputEmail.getText().toString();
-                final String password = mInputPassword.getText().toString();
-
+                 email = mInputEmail.getText().toString();
+                 password = mInputPassword.getText().toString();
                 if (TextUtils.isEmpty(email)) {
                     mInputEmail.setError("Please enter a valid email");
                     Toast.makeText(getApplicationContext(),
@@ -134,8 +145,11 @@ public class MainActivity extends AppCompatActivity {
                                         public void onError(CometChatException e) {
                                             Log.e(TAG, "Login Failed : " + e.getMessage());
                                         }
-
                                     });
+                                    if(rememberMeCB.isChecked())
+                                    {
+                                        setEmailPassword();
+                                    }
                                     Intent intent = new Intent(MainActivity.this, sportialActivity.class);
                                     startActivity(intent);
                                     finish();
@@ -145,6 +159,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void findViews() {
+         btnSignUp = findViewById(R.id.signup_button);
+         btnLogin = findViewById(R.id.login_button);
+        mInputEmail = (EditText) findViewById(R.id.editTextTextEmailAddress);
+        mInputPassword = (EditText) findViewById(R.id.editTextTextPassword);
+        rememberMeCB = (CheckBox) findViewById(R.id.remember_me_checkbox);
+    }
+
+    private void loadEmailPassword()
+    {
+        sp = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        String email = sp.getString(EMAIL_KEY, "");
+        String password = sp.getString(PASSWORD_KEY, "");
+        if(!email.isEmpty() && !password.isEmpty() ){
+            mInputEmail.setText(email);
+            mInputPassword.setText(password);
+        }
+    }
+
+    private void setEmailPassword(){
+         sp = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(EMAIL_KEY, email);
+        editor.putString(PASSWORD_KEY, password);
+        editor.apply();
+        Toast.makeText(this, "Email and password saved", Toast.LENGTH_SHORT).show();
     }
 
     private void initializeFirebase() {

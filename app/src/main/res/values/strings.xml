@@ -274,6 +274,7 @@
     <string name="request_sent">Request Sent</string>
     <string name="Unfriend" />
     <string name="unfriend">Unfriend</string>
+    <string name="back">Back</string>
 
 
 </resources>
