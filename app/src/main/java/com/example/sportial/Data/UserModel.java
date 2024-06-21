@@ -1,11 +1,8 @@
 package com.example.sportial.Data;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.io.Serializable;
 
-public class User implements Serializable{
+public class UserModel implements Serializable{
       String userId;
       int birthDay;
       String birthMonth;
@@ -15,11 +12,11 @@ public class User implements Serializable{
       String city;
       String gender;
       String sportType;
-    public User() {
+    public UserModel() {
 
     }
 
-    public User(String firstName, String lastName,int birthDay, String birthMonth, int birthYear, String gender, String city) {
+    public UserModel(String firstName, String lastName, int birthDay, String birthMonth, int birthYear, String gender, String city) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDay = birthDay;

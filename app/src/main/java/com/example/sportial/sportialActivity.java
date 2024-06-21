@@ -1,5 +1,6 @@
 package com.example.sportial;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -12,6 +13,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.sportial.Fragments.ProfilePageFragment;
 import com.example.sportial.Fragments.SearchPageFragment;
+import com.example.sportial.UI.ChatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class sportialActivity extends AppCompatActivity {
@@ -20,6 +22,7 @@ public class sportialActivity extends AppCompatActivity {
     private static final int MENU_ITEM_HOME = R.id.navigation_home;
     private static final int MENU_ITEM_PROFILE = R.id.navigation_profile;
     private static final int MENU_ITEM_SEARCH = R.id.navigation_search;
+    private static final int MENU_ITEM_CHATS = R.id.navigation_chats;
 
 
 
@@ -59,6 +62,14 @@ public class sportialActivity extends AppCompatActivity {
                 profileFragmentManager.beginTransaction().replace(R.id.sportial_fragment_container, searchPageFragment).commit();
                 return true;
             }
+            if (item.getItemId() == MENU_ITEM_CHATS) {
+                //change to profile fragment
+                Intent intent = new Intent(sportialActivity.this, ChatActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            }
+
             return false;
         });
 

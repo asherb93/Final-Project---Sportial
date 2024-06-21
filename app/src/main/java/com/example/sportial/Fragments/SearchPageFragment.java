@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.sportial.Adapter.suggestedFriendCV_RV_Adapter;
-import com.example.sportial.Data.User;
+import com.example.sportial.Data.UserModel;
 import com.example.sportial.FirebaseFunctions;
 import com.example.sportial.Model.friendCardModel;
 import com.example.sportial.R;
@@ -74,7 +74,7 @@ public class SearchPageFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-                User user = dataSnapshot.getValue(User.class);
+                UserModel user = dataSnapshot.getValue(UserModel.class);
                 String sportType = user.getSportType();
                 String uid = user.getUserId();
                 showListBySport(sportType,uid);
@@ -113,7 +113,7 @@ public class SearchPageFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 suggestedFriendsList.clear();
                 for(DataSnapshot ds: dataSnapshot.getChildren()) {
-                    User user = ds.getValue(User.class);
+                    UserModel user = ds.getValue(UserModel.class);
                     showSuggestedFriends(user,uid);
                     /*if(!((user.getUserId()).equals(uid))) {
                         friendCardModel friend = new friendCardModel(user.getFullName(), user.getCity(),R.drawable.ic_profile );
@@ -133,7 +133,7 @@ public class SearchPageFragment extends Fragment {
         });
     }
 
-    public void showSuggestedFriends(User user, String uid) {
+    public void showSuggestedFriends(UserModel user, String uid) {
 
         if(!((user.getUserId()).equals(uid))) {
             mAuth = FirebaseAuth.getInstance();
@@ -145,7 +145,7 @@ public class SearchPageFragment extends Fragment {
             ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                    User friendDetails= user;
+                    UserModel friendDetails= user;
                     friendCardModel friend = new friendCardModel(friendDetails.getFullName(), friendDetails.getCity(),uri);
                     suggestedFriendsList.add(friend);
                     adapter = new suggestedFriendCV_RV_Adapter(getActivity(), suggestedFriendsList);

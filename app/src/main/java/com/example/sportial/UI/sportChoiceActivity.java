@@ -27,20 +27,10 @@ import com.example.sportial.Adapter.SC_RV_Adapter;
 import com.example.sportial.FirebaseFunctions;
 import com.example.sportial.ImageUploadActivity;
 import com.example.sportial.R;
-import com.example.sportial.Data.User;
+import com.example.sportial.Data.UserModel;
 import com.example.sportial.Model.sportCardModel;
-import com.example.sportial.sportialActivity;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
-import androidx.annotation.NonNull;
 
 public class sportChoiceActivity extends AppCompatActivity {
 
@@ -65,7 +55,7 @@ public class sportChoiceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        User user = (User) intent.getSerializableExtra("user");
+        UserModel user = (UserModel) intent.getSerializableExtra("user");
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sport_choose);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -87,7 +77,7 @@ public class sportChoiceActivity extends AppCompatActivity {
         continueBtn=findViewById(id.continueButton);
     }
 
-    private void initListeners(User user) {
+    private void initListeners(UserModel user) {
             continueBtn.setOnClickListener(v -> {
                 try{
                     String sportName = this.sportName.getText().toString();

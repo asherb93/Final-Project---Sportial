@@ -14,6 +14,10 @@
         android:id="@+id/navigation_search"
         android:icon="@drawable/ic_search"
         android:title="@string/search" />
+    <item
+        android:id="@+id/navigation_chats"
+        android:icon="@drawable/comment_icon"
+        android:title="Chats" />
 
 
 

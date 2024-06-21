@@ -1,6 +1,9 @@
 package com.example.sportial;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 import android.widget.EditText;
 import android.text.TextUtils;
@@ -21,9 +24,25 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import com.cometchat.chat.core.CometChat;
+import com.cometchat.chat.exceptions.CometChatException;
+import com.cometchat.chat.models.User;
+import com.cometchat.chatuikit.shared.cometchatuikit.CometChatUIKit;
+import com.cometchat.chatuikit.shared.cometchatuikit.UIKitSettings;
+
 public class MainActivity extends AppCompatActivity {
     private EditText mInputEmail, mInputPassword;
     private FirebaseAuth mAuth;
+
+    String appID = "2595125acb2dbc47"; // Replace with your App ID
+    String region = "eu"; // Replace with your App Region ("EU" or "US")
+    String authKey= "0a834b669662dbbfad2becdf11e24f02a396d6e0"; // Replace with your App ID
+    UIKitSettings uiKitSettings = new UIKitSettings.UIKitSettingsBuilder()
+            .setRegion(region)
+            .setAppId(appID)
+            .setAuthKey(authKey)
+            .subscribePresenceForAllUsers().build();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +53,17 @@ public class MainActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        CometChatUIKit.init(this, uiKitSettings, new CometChat.CallbackListener<String>() {
+            @Override
+            public void onSuccess(String successString) {
+                //   /_Your action after initializing CometChat_/
+            }
+
+            @Override
+            public void onError(CometChatException e) {}
+
         });
 
         Button btnSignUp = findViewById(R.id.signup_button);
@@ -93,6 +123,19 @@ public class MainActivity extends AppCompatActivity {
                                             "Sign in failed",
                                             Toast.LENGTH_SHORT).show();
                                 } else {
+                                    String userId = mAuth.getCurrentUser().getUid();
+                                    CometChatUIKit.login(userId, new CometChat.CallbackListener<User>() {
+                                        @Override
+                                        public void onSuccess(User user) {
+                                            Log.d(TAG, "Login Successful : " + user.toString());
+                                        }
+
+                                        @Override
+                                        public void onError(CometChatException e) {
+                                            Log.e(TAG, "Login Failed : " + e.getMessage());
+                                        }
+
+                                    });
                                     Intent intent = new Intent(MainActivity.this, sportialActivity.class);
                                     startActivity(intent);
                                     finish();

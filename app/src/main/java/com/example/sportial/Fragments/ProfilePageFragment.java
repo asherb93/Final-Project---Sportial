@@ -20,7 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.sportial.Model.postCardModel;
 import com.example.sportial.FirebaseFunctions;
 import com.example.sportial.R;
-import com.example.sportial.Data.User;
+import com.example.sportial.Data.UserModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -135,7 +135,7 @@ public class ProfilePageFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-                User user = dataSnapshot.getValue(User.class);
+                UserModel user = dataSnapshot.getValue(UserModel.class);
                 profileNameTextView.setText(user.getFullName());
                 profileNameTextView.setVisibility(View.VISIBLE);
             }

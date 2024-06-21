@@ -19,18 +19,10 @@ import com.cometchat.chatuikit.shared.cometchatuikit.UIKitSettings;
 import com.example.sportial.R;
 
 public class ChatActivity extends AppCompatActivity {
-    String appID = "2595125acb2dbc47"; // Replace with your App ID
-    String region = "eu"; // Replace with your App Region ("EU" or "US")
-    String authKey= "0a834b669662dbbfad2becdf11e24f02a396d6e0"; // Replace with your App ID
-    UIKitSettings uiKitSettings = new UIKitSettings.UIKitSettingsBuilder()
-            .setRegion(region)
-            .setAppId(appID)
-            .setAuthKey(authKey)
-            .subscribePresenceForAllUsers().build();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
 
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -39,28 +31,6 @@ public class ChatActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-        });
-        CometChatUIKit.init(this, uiKitSettings, new CometChat.CallbackListener<String>() {
-            @Override
-            public void onSuccess(String successString) {
-             //   /_Your action after initializing CometChat_/
-            }
-
-            @Override
-            public void onError(CometChatException e) {}
-
-        });
-        CometChatUIKit.login("superhero1", new CometChat.CallbackListener<User>() {
-            @Override
-            public void onSuccess(User user) {
-                Log.d(TAG, "Login Successful : " + user.toString());
-            }
-
-            @Override
-            public void onError(CometChatException e) {
-                Log.e(TAG, "Login Failed : " + e.getMessage());
-            }
-
         });
 
     }

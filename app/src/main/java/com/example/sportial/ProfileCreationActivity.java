@@ -2,7 +2,6 @@ package com.example.sportial;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.telecom.Call;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,19 +11,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.sportial.UI.sportChoiceActivity;
-import com.example.sportial.Data.User;
-import com.google.android.gms.common.api.Response;
-
-import java.util.List;
-
-import javax.security.auth.callback.Callback;
+import com.example.sportial.Data.UserModel;
 
 public class ProfileCreationActivity extends AppCompatActivity {
 
@@ -80,7 +70,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
                     int userBirthYear = Integer.parseInt(yearSpinner.getSelectedItem().toString());
                     String genderStr = genderSpinner.getSelectedItem().toString();
                     String cityStr = cityEditText.getText().toString();
-                    User user = new User(firstNameStr, lastNameStr, userBirthDay, userBirthMonth, userBirthYear, genderStr, cityStr);
+                    UserModel user = new UserModel(firstNameStr, lastNameStr, userBirthDay, userBirthMonth, userBirthYear, genderStr, cityStr);
                     //func.uploadDetails(firstNameStr, lastNameStr, userBirthDay, userBirthMonth, userBirthYear, genderStr, cityStr);
                     // Create an Intent object with the target activity class
                     Intent intent = new Intent(ProfileCreationActivity.this, sportChoiceActivity.class);

@@ -1,11 +1,15 @@
 package com.example.sportial;
 
+import static android.content.ContentValues.TAG;
+
 import android.net.Uri;
+import android.util.Log;
+import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
 import com.example.sportial.Data.UploadPictureCallback;
-import com.example.sportial.Data.User;
+import com.example.sportial.Data.UserModel;
 import com.example.sportial.Model.postCardModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -18,7 +22,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-
+import com.cometchat.chat.core.CometChat;
+import com.cometchat.chat.exceptions.CometChatException;
+import com.cometchat.chat.models.User;
+import com.cometchat.chatuikit.shared.cometchatuikit.CometChatUIKit;
+import com.cometchat.chatuikit.shared.cometchatuikit.UIKitSettings;
 
 public class FirebaseFunctions {
 
@@ -57,7 +65,7 @@ public class FirebaseFunctions {
         });
     }
 
-    public void uploadDetails(User user){
+    public void uploadDetails(UserModel user){
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
         // creating a variable for
@@ -67,10 +75,40 @@ public class FirebaseFunctions {
         // below line is used to get reference for our database.
         databaseReference = firebaseDatabase.getReference("Users/"+firebaseUser.getUid());
         databaseReference.setValue(user);
+
+        String authKey = "0a834b669662dbbfad2becdf11e24f02a396d6e0"; // Replace with your App Auth Key
+        User chatUser = new User();
+        chatUser.setUid(user.getUserId()); // Replace with the UID for the user to be created
+        chatUser.setName(user.getFullName()); // Replace with the name of the user
+
+        CometChat.createUser(chatUser, authKey, new CometChat.CallbackListener <User> () {
+            @Override
+            public void onSuccess(User chatUser) {
+                Log.d("createUser", chatUser.toString());
+            }
+
+            @Override
+            public void onError(CometChatException e) {
+                Log.e("createUser", e.getMessage());
+            }
+        });
+
+        CometChatUIKit.login(user.getUserId(), new CometChat.CallbackListener<User>() {
+            @Override
+            public void onSuccess(User user) {
+                Log.d(TAG, "Login Successful : " + user.toString());
+            }
+
+            @Override
+            public void onError(CometChatException e) {
+                Log.e(TAG, "Login Failed : " + e.getMessage());
+            }
+
+        });
     }
 
 
-    public void uploadSport(User user){
+    public void uploadSport(UserModel user){
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -90,7 +128,7 @@ public class FirebaseFunctions {
         databaseReference.setValue(post);
     }
 
-    public void uploadFriend(User friend){
+    public void uploadFriend(UserModel friend){
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
         // creating a variable for
