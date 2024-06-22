@@ -146,11 +146,26 @@ public class SearchPageFragment extends Fragment {
                 @Override
                 public void onSuccess(Uri uri) {
                     UserModel friendDetails= user;
-                    friendCardModel friend = new friendCardModel(friendDetails.getFullName(), friendDetails.getCity(),uri);
+                    friendCardModel friend = new friendCardModel(friendDetails.getFullName(), friendDetails.getCity(),uri,friendDetails.getUserId());
+                    firebaseDatabase = FirebaseDatabase.getInstance();
+                    databaseReference = firebaseDatabase.getReference("Users/" + uid+"/FriendRequests/"+friendDetails.getUserId());
+                    ValueEventListener userListener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String status = dataSnapshot.child("status").getValue(String.class);
+                            friend.setStatus(status);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            // Getting Post failed, log a message
+                            Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                        }
+                    };
+                    databaseReference.addValueEventListener(userListener);
                     suggestedFriendsList.add(friend);
                     adapter = new suggestedFriendCV_RV_Adapter(getActivity(), suggestedFriendsList);
                     friendsRecyclerView.setAdapter(adapter);
-
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

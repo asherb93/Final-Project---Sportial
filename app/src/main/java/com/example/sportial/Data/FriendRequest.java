@@ -1,18 +1,26 @@
 package com.example.sportial.Data;
 
 public class FriendRequest {
-    UserModel userReceive;
-    UserModel userSend;
-    boolean status;
+    String userReceive;
+    String userSend;
+    String status;
 
     public FriendRequest(){
 
     }
 
-    public void sendRequest(UserModel userReceive, UserModel userSend){
+    public void sendRequest(String userReceive, String userSend, String status){
         this.userReceive = userReceive;
         this.userSend = userSend;
-        //send request to userReceive
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
 }

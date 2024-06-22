@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.sportial.Data.FriendRequest;
+import com.example.sportial.FirebaseFunctions;
 import com.example.sportial.Model.friendCardModel;
 import com.example.sportial.R;
 
@@ -21,7 +23,8 @@ import java.util.ArrayList;
 public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggestedFriendCV_RV_Adapter.MyViewHolder> {
 
     Context context;
-    ArrayList<friendCardModel> suggestedFriendsArrayList;
+    static ArrayList<friendCardModel> suggestedFriendsArrayList;
+    static FirebaseFunctions func = new FirebaseFunctions();
 
     public suggestedFriendCV_RV_Adapter(Context context, ArrayList<friendCardModel> suggestedFriendsArrayList) {
         this.context = context;
@@ -41,7 +44,13 @@ public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggested
         holder.friendNameTV.setText(suggestedFriendsArrayList.get(position).getUserName());
         holder.friendLocationTV.setText(suggestedFriendsArrayList.get(position).getUserLocation());
         Glide.with(holder.friendProfileIV).load(suggestedFriendsArrayList.get(position).getUserProfilePic()).into(holder.friendProfileIV);
-        // holder.friendProfileIV.setImageURI(suggestedFriendsArrayList.get(position).getUserProfilePic());
+        if(suggestedFriendsArrayList.get(position).getStatus() != null){
+            if((suggestedFriendsArrayList.get(position).getStatus().equals("sent"))){
+                holder.requestFriendBtn.setText(R.string.request_sent);
+                holder.requestFriendBtn.setBackgroundColor(R.color.lightGrey);
+            }
+        }
+
     }
 
     @Override
@@ -68,6 +77,8 @@ public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggested
                 public void onClick(View v) {
                     requestFriendBtn.setText(R.string.request_sent);
                     requestFriendBtn.setBackgroundColor(R.color.lightGrey);
+                    func.sendFriendRequest(suggestedFriendsArrayList.get(getAdapterPosition()).getUserId());
+                    suggestedFriendsArrayList.get(getAdapterPosition()).setStatus("sent");
                 }
             });
 
