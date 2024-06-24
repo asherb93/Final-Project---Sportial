@@ -43,16 +43,25 @@ public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggested
         holder.friendNameTV.setText(suggestedFriendsArrayList.get(position).getUserName());
         holder.friendLocationTV.setText(suggestedFriendsArrayList.get(position).getUserLocation());
         Glide.with(holder.friendProfileIV).load(suggestedFriendsArrayList.get(position).getUserProfilePic()).into(holder.friendProfileIV);
-        if(suggestedFriendsArrayList.get(position).getStatus() != null){
-            if((suggestedFriendsArrayList.get(position).getStatus().equals("sent"))){
+        if (suggestedFriendsArrayList.get(position).getStatus() != null) {
+            if ((suggestedFriendsArrayList.get(position).getStatus().equals("sent"))) {
                 holder.requestFriendBtn.setText(R.string.request_sent);
                 holder.requestFriendBtn.setBackgroundColor(R.color.lightGrey);
+                holder.acceptButton.setVisibility(View.INVISIBLE);
+                holder.declineButton.setVisibility(View.INVISIBLE);
             }
+            if ((suggestedFriendsArrayList.get(position).getStatus().equals("received"))) {
+                holder.requestFriendBtn.setVisibility(View.INVISIBLE);
+            }
+            if ((suggestedFriendsArrayList.get(position).getStatus().equals("friends"))) {
+                holder.requestFriendBtn.setVisibility(View.INVISIBLE);
+                holder.acceptButton.setVisibility(View.INVISIBLE);
+                holder.declineButton.setVisibility(View.INVISIBLE);
+            }
+        } else {
+            holder.acceptButton.setVisibility(View.INVISIBLE);
+            holder.declineButton.setVisibility(View.INVISIBLE);
         }
-        holder.requestFriendBtn.setVisibility(View.INVISIBLE);
-        //holder.acceptButton.setVisibility(View.INVISIBLE);
-        //holder.declineButton.setVisibility(View.INVISIBLE);
-
 
     }
 
@@ -89,6 +98,29 @@ public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggested
                 }
             });
 
+            acceptButton.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("ResourceAsColor")
+                @Override
+                public void onClick(View v) {
+                    func.acceptFriendRequest(suggestedFriendsArrayList.get(getAdapterPosition()).getUserId());
+                    suggestedFriendsArrayList.get(getAdapterPosition()).setStatus("friends");
+                    acceptButton.setVisibility(View.INVISIBLE);
+                    declineButton.setVisibility(View.INVISIBLE);
+                }
+            });
+
+            declineButton.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("ResourceAsColor")
+                @Override
+                public void onClick(View v) {
+                    func.declineFriendRequest(suggestedFriendsArrayList.get(getAdapterPosition()).getUserId());
+                    suggestedFriendsArrayList.get(getAdapterPosition()).setStatus("\0");
+                    acceptButton.setVisibility(View.INVISIBLE);
+                    declineButton.setVisibility(View.INVISIBLE);
+                    requestFriendBtn.setVisibility(View.VISIBLE);
+                }
+
+            });
         }
     }
 }

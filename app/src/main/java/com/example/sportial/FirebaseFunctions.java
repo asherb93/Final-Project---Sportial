@@ -154,4 +154,30 @@ public class FirebaseFunctions {
         databaseReference.setValue(friendRequest);
     }
 
+    public void acceptFriendRequest(String receiverUid){
+        mAuth = FirebaseAuth.getInstance();
+        firebaseUser = mAuth.getCurrentUser();
+        FriendRequest friendRequest = new FriendRequest();
+        friendRequest.sendRequest(receiverUid, firebaseUser.getUid(), "friends");
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        // below line is used to get reference for our database.
+        databaseReference = firebaseDatabase.getReference("Users/"+firebaseUser.getUid()+"/FriendRequests/"+receiverUid);
+        databaseReference.setValue(friendRequest);
+        databaseReference = firebaseDatabase.getReference("Users/"+receiverUid+"/FriendRequests/"+firebaseUser.getUid());
+        databaseReference.setValue(friendRequest);
+    }
+
+    public void declineFriendRequest(String receiverUid){
+        mAuth = FirebaseAuth.getInstance();
+        firebaseUser = mAuth.getCurrentUser();
+        //FriendRequest friendRequest = new FriendRequest();
+        //friendRequest.sendRequest(receiverUid, firebaseUser.getUid(), "friends");
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        // below line is used to get reference for our database.
+        databaseReference = firebaseDatabase.getReference("Users/"+firebaseUser.getUid()+"/FriendRequests/"+receiverUid);
+        databaseReference.removeValue();
+        databaseReference = firebaseDatabase.getReference("Users/"+receiverUid+"/FriendRequests/"+firebaseUser.getUid());
+        databaseReference.removeValue();
+    }
+
 }
