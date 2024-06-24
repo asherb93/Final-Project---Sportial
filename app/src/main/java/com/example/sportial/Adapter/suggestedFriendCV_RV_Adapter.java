@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.sportial.Data.FriendRequest;
 import com.example.sportial.FirebaseFunctions;
 import com.example.sportial.Model.friendCardModel;
 import com.example.sportial.R;
@@ -50,6 +49,10 @@ public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggested
                 holder.requestFriendBtn.setBackgroundColor(R.color.lightGrey);
             }
         }
+        holder.requestFriendBtn.setVisibility(View.INVISIBLE);
+        //holder.acceptButton.setVisibility(View.INVISIBLE);
+        //holder.declineButton.setVisibility(View.INVISIBLE);
+
 
     }
 
@@ -63,6 +66,8 @@ public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggested
         TextView friendLocationTV;
         ImageView friendProfileIV;
         Button requestFriendBtn;
+        Button acceptButton;
+        Button declineButton;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,6 +75,8 @@ public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggested
             friendLocationTV = itemView.findViewById(R.id.location_TV);
             friendProfileIV = itemView.findViewById(R.id.friendProfilePictureIV);
             requestFriendBtn = itemView.findViewById(R.id.button);
+            acceptButton = itemView.findViewById(R.id.accept_btn);
+            declineButton = itemView.findViewById(R.id.decline_btn);
 
             requestFriendBtn.setOnClickListener(new View.OnClickListener() {
                 @SuppressLint("ResourceAsColor")

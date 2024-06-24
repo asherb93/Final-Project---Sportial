@@ -275,6 +275,8 @@
     <string name="Unfriend" />
     <string name="unfriend">Unfriend</string>
     <string name="back">Back</string>
+    <string name="decline">Decline</string>
+    <string name="accept">Accept</string>
 
 
 </resources>
