@@ -48,13 +48,17 @@ public class profilefriendsfragment extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     DatabaseReference friendDatabaseReference;
+    Uri imuri = Uri.parse("android.resource://com.example.sportial/drawable/ic_profile");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile_friends, container, false);
         recyclerView = view.findViewById(R.id.profileFriendRV);
-        setFriendsList(profileFriendsArrayList);
+        //setFriendsList(profileFriendsArrayList);
+        profileFriendsArrayList.add(new friendCardModel("Yossi yosipov","Or akiva",imuri,"1us2hv4"));
+        adapter = new friendCV_RV_Adapter(getActivity(), profileFriendsArrayList);
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         return view;
@@ -73,33 +77,36 @@ public class profilefriendsfragment extends Fragment {
                     String status = ds.child("status").getValue(String.class);
                     if(status.equals("friends")){
                         String friendUid = ds.getKey();
-                        friendDatabaseReference = firebaseDatabase.getReference("Users/" + friendUid);
-                        friendDatabaseReference.addValueEventListener(new ValueEventListener(){
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                // Get Post object and use the values to update the UI
-                                UserModel user = dataSnapshot.getValue(UserModel.class);
-                                showFriends(user,firebaseUser.getUid());
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                                // Getting Post failed, log a message
-                                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                            }
-                        });
-
+                        getFriendUser(friendUid);
                     }
                 }
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
 
+    }
+
+    public void getFriendUser(String friendUid){
+        mAuth = FirebaseAuth.getInstance();
+        firebaseUser = mAuth.getCurrentUser();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        friendDatabaseReference = firebaseDatabase.getReference("Users/" + friendUid);
+        friendDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                UserModel user = dataSnapshot.getValue(UserModel.class);
+                showFriends(user,firebaseUser.getUid());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        });
     }
 
     public void showFriends(UserModel user, String uid){
