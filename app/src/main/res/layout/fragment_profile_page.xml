@@ -8,24 +8,6 @@
     tools:context=".Fragments.ProfilePageFragment"
     >
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_menu">
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/profile_fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:backgroundTint="@color/black" />
-
-    </LinearLayout>
-
 
     <androidx.cardview.widget.CardView
         android:id="@+id/profile_cardView"
@@ -157,7 +139,44 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_cardView"
-        app:menu="@menu/profile_page_menu" />
+        app:menu="@menu/profile_page_menu" >
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/profile_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:backgroundTint="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/ll_nav_bar"
+        app:layout_constraintTop_toBottomOf="@+id/profile_menu" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/nav_bar_place_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:itemTextAppearance="@style/BottomNavigationTextAppearance"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_cardView"
+            app:menu="@menu/social_media_menu" >
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

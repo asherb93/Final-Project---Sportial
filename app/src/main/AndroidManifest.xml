@@ -17,9 +17,6 @@
         tools:ignore="WrongManifestParent,WrongManifestPaxxrent"
         tools:targetApi="31" >
         <activity
-            android:name=".ProfileSignUpActivity"
-            android:exported="false" />
-        <activity
             android:name=".UI.ChatActivity"
             android:exported="true" />
         <activity
@@ -28,9 +25,6 @@
         <activity
             android:name=".UI.HomePageActivity"
             android:exported="false" />
-        <activity
-            android:name=".UI.ProfilePageActivity"
-            android:exported="true" />
         <activity
             android:name=".UI.sportChoiceActivity"
             android:exported="true" />

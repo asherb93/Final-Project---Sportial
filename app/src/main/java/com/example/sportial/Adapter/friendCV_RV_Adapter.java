@@ -41,7 +41,6 @@ public class friendCV_RV_Adapter extends RecyclerView.Adapter<friendCV_RV_Adapte
         holder.friendNameTV.setText(profileFriendArrayList.get(position).getUserName());
         holder.friendLocationTV.setText(profileFriendArrayList.get(position).getUserLocation());
         Glide.with(holder.friendProfileIV).load(profileFriendArrayList.get(position).getUserProfilePic()).into(holder.friendProfileIV);
-        // holder.friendProfileIV.setImageURI(suggestedFriendsArrayList.get(position).getUserProfilePic());
 
     }
 
