@@ -14,6 +14,7 @@ public class UserModel implements Serializable{
       String sportType;
     public UserModel() {
 
+
     }
 
     public UserModel(String firstName, String lastName, int birthDay, String birthMonth, int birthYear, String gender, String city) {

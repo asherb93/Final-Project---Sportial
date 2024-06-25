@@ -23,6 +23,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.sportial.UI.HomePageActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         CometChatUIKit.init(this, uiKitSettings, new CometChat.CallbackListener<String>() {
             @Override
             public void onSuccess(String successString) {
+
             }
 
             @Override
@@ -167,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
         mInputEmail = (EditText) findViewById(R.id.editTextTextEmailAddress);
         mInputPassword = (EditText) findViewById(R.id.editTextTextPassword);
         rememberMeCB = (CheckBox) findViewById(R.id.remember_me_checkbox);
+
     }
 
     private void loadEmailPassword()

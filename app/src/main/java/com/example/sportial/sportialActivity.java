@@ -15,6 +15,7 @@ import com.example.sportial.Fragments.ProfilePageFragment;
 import com.example.sportial.Fragments.SearchPageFragment;
 import com.example.sportial.UI.ChatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class sportialActivity extends AppCompatActivity {
 
@@ -23,11 +24,8 @@ public class sportialActivity extends AppCompatActivity {
     private static final int MENU_ITEM_PROFILE = R.id.navigation_profile;
     private static final int MENU_ITEM_SEARCH = R.id.navigation_search;
     private static final int MENU_ITEM_CHATS = R.id.navigation_chats;
-
-
-
-
     BottomNavigationView socialMediaNav;
+    FloatingActionButton new_post_FAB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +42,7 @@ public class sportialActivity extends AppCompatActivity {
 
 
         socialMediaNav = findViewById(R.id.sportial_menu);
-
+        new_post_FAB = findViewById(R.id.new_post_FAB);
 
 
         socialMediaNav.setOnItemSelectedListener(item -> {
@@ -71,6 +69,13 @@ public class sportialActivity extends AppCompatActivity {
             }
 
             return false;
+        });
+
+        new_post_FAB.setOnClickListener(v->{
+            Intent intent = new Intent(sportialActivity.this, PostActivity.class);
+            startActivity(intent);
+            finish();
+
         });
 
 
