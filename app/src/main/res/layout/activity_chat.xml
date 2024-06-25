@@ -16,9 +16,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.cometchat.chatuikit.conversationswithmessages.CometChatConversationsWithMessages
-        android:id="@+id/conversation"
+<!--    <com.cometchat.chatuikit.conversationswithmessages.CometChatConversationsWithMessages-->
+<!--        android:id="@+id/conversation"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent" />-->
+    <com.cometchat.chatuikit.userswithmessages.CometChatUsersWithMessages
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:id="@+id/users_with_messages"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
