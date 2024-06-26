@@ -80,7 +80,8 @@ public class FirebaseFunctions {
         String authKey = "0a834b669662dbbfad2becdf11e24f02a396d6e0"; // Replace with your App Auth Key
         User chatUser = new User();
         chatUser.setUid(user.getUserId()); // Replace with the UID for the user to be created
-        chatUser.setName(user.getFullName()); // Replace with the name of the user
+        chatUser.setName(user.getFullName());// Replace with the name of the user
+        chatUser.setRole(user.getSportType());
 
         CometChat.createUser(chatUser, authKey, new CometChat.CallbackListener <User> () {
             @Override
