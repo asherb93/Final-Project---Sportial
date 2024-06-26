@@ -13,11 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.sportial.Data.MyCallback;
 import com.example.sportial.FirebaseFunctions;
 import com.example.sportial.Model.friendCardModel;
 import com.example.sportial.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggestedFriendCV_RV_Adapter.MyViewHolder> {
 
@@ -91,9 +93,21 @@ public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggested
                 @SuppressLint("ResourceAsColor")
                 @Override
                 public void onClick(View v) {
-                    requestFriendBtn.setText(R.string.request_sent);
-                    requestFriendBtn.setBackgroundColor(R.color.lightGrey);
-                    func.sendFriendRequest(suggestedFriendsArrayList.get(getAdapterPosition()).getUserId());
+
+                    func.sendFriendRequest(suggestedFriendsArrayList.get(getAdapterPosition()).getUserId(), new MyCallback() {
+
+                        @Override
+                        public void FriendRequestCallBack(boolean success) {
+                          if(success){
+                              suggestedFriendsArrayList.get(getAdapterPosition()).setStatus("received");
+                              requestFriendBtn.setText(R.string.request_sent);
+                              requestFriendBtn.setBackgroundColor(R.color.lightGrey);
+                          }
+
+
+
+                        }
+                    });
                     suggestedFriendsArrayList.get(getAdapterPosition()).setStatus("sent");
                 }
             });

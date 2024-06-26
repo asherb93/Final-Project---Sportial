@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import com.example.sportial.Data.FriendRequest;
+import com.example.sportial.Data.MyCallback;
 import com.example.sportial.Data.UploadPictureCallback;
 import com.example.sportial.Data.UserModel;
 import com.example.sportial.Model.postCardModel;
@@ -142,7 +143,7 @@ public class FirebaseFunctions {
         databaseReference.setValue(friend);
     }
 
-    public void sendFriendRequest(String receiverUid){
+    public void sendFriendRequest(String receiverUid, MyCallback callback){
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
         FriendRequest friendRequest = new FriendRequest();
@@ -157,6 +158,7 @@ public class FirebaseFunctions {
                     public void onSuccess(Void aVoid) {
                         // Write was successful!
                         // ...
+                        callback.FriendRequestCallBack(true);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -164,6 +166,7 @@ public class FirebaseFunctions {
                     public void onFailure(@NonNull Exception e) {
                         // Write failed
                         // ...
+                        callback.FriendRequestCallBack(false);
                 }
 });
 
