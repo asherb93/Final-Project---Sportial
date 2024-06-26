@@ -77,6 +77,7 @@ public class FirebaseFunctions {
         databaseReference = firebaseDatabase.getReference("Users/"+firebaseUser.getUid());
         databaseReference.setValue(user);
 
+
         String authKey = "0a834b669662dbbfad2becdf11e24f02a396d6e0"; // Replace with your App Auth Key
         User chatUser = new User();
         chatUser.setUid(user.getUserId()); // Replace with the UID for the user to be created
@@ -149,10 +150,40 @@ public class FirebaseFunctions {
         firebaseDatabase = FirebaseDatabase.getInstance();
         // below line is used to get reference for our database.
         databaseReference = firebaseDatabase.getReference("Users/"+firebaseUser.getUid()+"/FriendRequests/"+receiverUid);
-        databaseReference.setValue(friendRequest);
+        databaseReference.setValue(friendRequest)
+
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Write was successful!
+                        // ...
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Write failed
+                        // ...
+                }
+});
+
         friendRequest.setStatus("received");
         databaseReference = firebaseDatabase.getReference("Users/"+receiverUid+"/FriendRequests/"+firebaseUser.getUid());
-        databaseReference.setValue(friendRequest);
+        databaseReference.setValue(friendRequest)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Write was successful!
+                        // ...
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Write failed
+                        // ...
+                    }
+                });
     }
 
     public void acceptFriendRequest(String receiverUid){
