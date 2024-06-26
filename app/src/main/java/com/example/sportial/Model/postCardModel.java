@@ -1,6 +1,8 @@
 package com.example.sportial.Model;
 
-import android.widget.ImageView;
+import android.net.Uri;
+
+import java.net.URI;
 
 public class postCardModel {
 
@@ -8,6 +10,12 @@ public class postCardModel {
      static int postid = 0;
      String date;
      String text;
+     private Uri post_picture;
+
+    public static void setPostid(int postid) {
+        postCardModel.postid = postid;
+    }
+
 
     public postCardModel(){
 
@@ -17,7 +25,18 @@ public class postCardModel {
         this.date = date;
         this.text = text;
         this.postid = postid++;
+
     }
+
+    public postCardModel(String name, String date, String text,Uri post_picture) {
+        this.name = name;
+        this.date = date;
+        this.text = text;
+        this.postid = postid++;
+        this.post_picture = post_picture;
+
+    }
+
 
     public String getName() {
         return name;
@@ -46,4 +65,13 @@ public class postCardModel {
     public int getPostid() {
         return postid;
     }
+
+    public Uri getPost_picture() {
+        return post_picture;
+    }
+
+    public void setPost_picture(Uri post_picture) {
+        this.post_picture = post_picture;
+    }
+
 }

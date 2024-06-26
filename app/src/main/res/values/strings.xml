@@ -279,6 +279,7 @@
     <string name="accept">Accept</string>
     <string name="publish_a_new_post">Publish a new Post</string>
     <string name="what_s_on_your_mind">What\'s on your mind?</string>
+    <string name="cancel" />
 
 
 </resources>

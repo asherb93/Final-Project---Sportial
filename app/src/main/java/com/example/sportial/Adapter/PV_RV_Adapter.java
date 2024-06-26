@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,6 +42,7 @@ public class PV_RV_Adapter extends RecyclerView.Adapter<PV_RV_Adapter.MyViewHold
         holder.post_name.setText(postCardModelArrayList.get(position).getName());
         holder.post_date.setText(postCardModelArrayList.get(position).getDate());
         holder.post_text.setText(postCardModelArrayList.get(position).getText());
+        holder.post_image.setImageURI(postCardModelArrayList.get(position).getPost_picture());
     }
     @Override
     public int getItemCount() {
@@ -53,12 +55,14 @@ public class PV_RV_Adapter extends RecyclerView.Adapter<PV_RV_Adapter.MyViewHold
         TextView post_name;
         TextView post_date;
         TextView post_text;
+        ImageView post_image;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             post_name = itemView.findViewById(R.id.post_name);
             post_date = itemView.findViewById(R.id.post_date);
             post_text = itemView.findViewById(R.id.post_text);
+            post_image =itemView.findViewById(R.id.post_image_view);
         }
     }
 }
