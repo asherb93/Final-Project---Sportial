@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.sportial.Fragments.MapsFragment;
 import com.example.sportial.Fragments.ProfilePageFragment;
 import com.example.sportial.Fragments.SearchPageFragment;
 import com.example.sportial.UI.ChatActivity;
@@ -38,7 +39,9 @@ public class sportialActivity extends AppCompatActivity {
             return insets;
         });
 
-
+        Fragment mapsFragment = new MapsFragment();
+        FragmentManager mapsFragmentManager = getSupportFragmentManager();
+        mapsFragmentManager.beginTransaction().replace(R.id.sportial_fragment_container, mapsFragment).commit();
 
 
         socialMediaNav = findViewById(R.id.sportial_menu);

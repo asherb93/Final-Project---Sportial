@@ -280,6 +280,7 @@
     <string name="publish_a_new_post">Publish a new Post</string>
     <string name="what_s_on_your_mind">What\'s on your mind?</string>
     <string name="cancel" />
+    <string name="title_activity_maps">MapsActivity</string>
 
 
 </resources>

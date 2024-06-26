@@ -23,7 +23,6 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.sportial.UI.HomePageActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -48,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     private String email;
     private  String password;
 
+
+
+
     SharedPreferences sp;
 
     String appID = "2595125acb2dbc47"; // Replace with your App ID
@@ -61,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         EdgeToEdge.enable(this);
