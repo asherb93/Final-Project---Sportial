@@ -87,22 +87,7 @@ public class SearchPageFragment extends Fragment {
             }
         };
         databaseReference.addValueEventListener(userListener);
-
-//        suggestedFriendsList.add(new friendCardModel("Yossi yosipov","Or akiva",R.drawable.ic_profile));
-//        suggestedFriendsList.add(new friendCardModel("Lavy Cohen","Or akiva",R.drawable.ic_profile));
-//        suggestedFriendsList.add(new friendCardModel("Hezi","Or akiva",R.drawable.ic_profile));
-//        suggestedFriendsList.add(new friendCardModel("Libi Elkalay","Or akiva",R.drawable.ic_profile));
-//        suggestedFriendsList.add(new friendCardModel("Yossi yosipov","Or akiva",R.drawable.ic_profile));
-//        suggestedFriendsList.add(new friendCardModel("Yossi yosipov","Or akiva",R.drawable.ic_profile));
-//        suggestedFriendsList.add(new friendCardModel("Yossi yosipov","Or akiva",R.drawable.ic_profile));
-//        suggestedFriendsList.add(new friendCardModel("Yossi yosipov","Or akiva",R.drawable.ic_profile));
-//        suggestedFriendsList.add(new friendCardModel("Yossi yosipov","Or akiva",R.drawable.ic_profile));
-//        suggestedFriendsList.add(new friendCardModel("Yossi yosipov","Or akiva",R.drawable.ic_profile));
-//        suggestedFriendsList.add(new friendCardModel("Yossi yosipov","Or akiva",R.drawable.ic_profile));
-//        suggestedFriendsList.add(new friendCardModel("Yossi yosipov","Or akiva",R.drawable.ic_profile));
-//        suggestedFriendsList.add(new friendCardModel("Yossi yosipov","Or akiva",R.drawable.ic_profile));
-//        suggestedFriendsList.add(new friendCardModel("Yossi yosipov","Or akiva",R.drawable.ic_profile));
-//        suggestedFriendsList.add(new friendCardModel("Yossi yosipov","Or akiva",R.drawable.ic_profile));
+        
     }
 
     public void showListBySport(String sportType, String uid){
