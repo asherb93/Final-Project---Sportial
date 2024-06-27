@@ -50,7 +50,6 @@ public class PV_RV_Adapter extends RecyclerView.Adapter<PV_RV_Adapter.MyViewHold
         if(postCardModelArrayList.get(position).getHasImage()){
             Glide.with(holder.post_image).load(Uri.parse(postCardModelArrayList.get(position).getPost_picture())).into(holder.post_image);
             //holder.post_image.setImageURI(Uri.parse(postCardModelArrayList.get(position).getPost_picture()));
-            holder.post_image.setVisibility(View.VISIBLE);
         }
 
     }
@@ -75,7 +74,6 @@ public class PV_RV_Adapter extends RecyclerView.Adapter<PV_RV_Adapter.MyViewHold
             post_text = itemView.findViewById(R.id.post_text);
             post_profile_picture =itemView.findViewById(R.id.friendProfilePictureIV);
             post_image = itemView.findViewById(R.id.post_image_view);
-            post_image.setVisibility(View.INVISIBLE);
         }
     }
 }
