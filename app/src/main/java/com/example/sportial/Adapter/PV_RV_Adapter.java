@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.sportial.Fragments.ProfilePageFragment;
 import com.example.sportial.R;
 import com.example.sportial.Model.postCardModel;
 
@@ -43,9 +45,11 @@ public class PV_RV_Adapter extends RecyclerView.Adapter<PV_RV_Adapter.MyViewHold
         holder.post_name.setText(postCardModelArrayList.get(position).getName());
         holder.post_date.setText(postCardModelArrayList.get(position).getDate().toString());
         holder.post_text.setText(postCardModelArrayList.get(position).getText());
-        holder.post_profile_picture.setImageURI(Uri.parse(postCardModelArrayList.get(position).getProfile_picture()));
+        Glide.with(holder.post_profile_picture).load(Uri.parse(postCardModelArrayList.get(position).getProfile_picture())).into(holder.post_profile_picture);
+        //holder.post_profile_picture.setImageURI(Uri.parse(postCardModelArrayList.get(position).getProfile_picture()));
         if(postCardModelArrayList.get(position).getHasImage()){
-            holder.post_image.setImageURI(Uri.parse(postCardModelArrayList.get(position).getPost_picture()));
+            Glide.with(holder.post_image).load(Uri.parse(postCardModelArrayList.get(position).getPost_picture())).into(holder.post_image);
+            //holder.post_image.setImageURI(Uri.parse(postCardModelArrayList.get(position).getPost_picture()));
             holder.post_image.setVisibility(View.VISIBLE);
         }
 
