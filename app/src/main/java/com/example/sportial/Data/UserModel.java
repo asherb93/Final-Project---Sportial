@@ -12,6 +12,8 @@ public class UserModel implements Serializable{
       String city;
       String gender;
       String sportType;
+      String profilePictureUrl;
+
     public UserModel() {
 
 
@@ -71,5 +73,13 @@ public class UserModel implements Serializable{
     public void setSportType(String sportType) {
         this.sportType = sportType;
     }
+
+    public String getProfilePictureUrl(){
+        return profilePictureUrl;
+    }
+    public void setProfilePictureUrl(String profilePictureUrl){
+        this.profilePictureUrl = profilePictureUrl;
+    }
+
 
 }

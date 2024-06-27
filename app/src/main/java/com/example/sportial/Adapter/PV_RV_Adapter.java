@@ -43,6 +43,7 @@ public class PV_RV_Adapter extends RecyclerView.Adapter<PV_RV_Adapter.MyViewHold
         holder.post_name.setText(postCardModelArrayList.get(position).getName());
         holder.post_date.setText(postCardModelArrayList.get(position).getDate().toString());
         holder.post_text.setText(postCardModelArrayList.get(position).getText());
+        holder.post_profile_picture.setImageURI(Uri.parse(postCardModelArrayList.get(position).getProfile_picture()));
         if(postCardModelArrayList.get(position).getHasImage()){
             holder.post_image.setImageURI(Uri.parse(postCardModelArrayList.get(position).getPost_picture()));
             holder.post_image.setVisibility(View.VISIBLE);
@@ -61,13 +62,15 @@ public class PV_RV_Adapter extends RecyclerView.Adapter<PV_RV_Adapter.MyViewHold
         TextView post_date;
         TextView post_text;
         ImageView post_image;
+        ImageView post_profile_picture;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             post_name = itemView.findViewById(R.id.post_name);
             post_date = itemView.findViewById(R.id.post_date);
             post_text = itemView.findViewById(R.id.post_text);
-            post_image =itemView.findViewById(R.id.post_image_view);
+            post_profile_picture =itemView.findViewById(R.id.friendProfilePictureIV);
+            post_image = itemView.findViewById(R.id.post_image_view);
             post_image.setVisibility(View.INVISIBLE);
         }
     }

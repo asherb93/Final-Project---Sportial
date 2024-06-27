@@ -9,10 +9,12 @@ import java.io.Serializable;
 public class postCardModel implements Serializable{
 
      String name;
+     String userId;
      String date;
      String text;
      boolean hasImage;
      String postPictureUrl;
+     String profilePictureUrl;
 
 
     public postCardModel(){
@@ -64,6 +66,18 @@ public class postCardModel implements Serializable{
     }
     public String getPost_picture() {
         return postPictureUrl;
+    }
+    public void setProfile_picture(String profile_picture) {
+        this.profilePictureUrl = profile_picture;
+    }
+    public String getProfile_picture() {
+        return profilePictureUrl;
+        }
+        public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
 

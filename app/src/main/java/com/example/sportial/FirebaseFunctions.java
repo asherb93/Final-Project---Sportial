@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import android.net.Uri;
 import android.util.Log;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 
@@ -18,8 +19,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -126,11 +130,30 @@ public class FirebaseFunctions {
     public void uploadPost(postCardModel post){
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
-        post.setName(firebaseUser.getUid());
+        post.setUserId(firebaseUser.getUid());
         firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Users/"+firebaseUser.getUid());
+        ValueEventListener userListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                UserModel user = dataSnapshot.getValue(UserModel.class);
+                post.setName(user.getFullName());
+                post.setProfile_picture(user.getProfilePictureUrl());
+                DatabaseReference ref = firebaseDatabase.getReference("Posts/"+firebaseUser.getUid()+"/"+post.getDate());
+                ref.setValue(post);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+        databaseReference.addValueEventListener(userListener);
+
         // below line is used to get reference for our database.
-        databaseReference = firebaseDatabase.getReference("Posts/"+firebaseUser.getUid()+"/"+post.getDate());
-        databaseReference.setValue(post);
+
     }
 
     public void uploadFriend(UserModel friend){

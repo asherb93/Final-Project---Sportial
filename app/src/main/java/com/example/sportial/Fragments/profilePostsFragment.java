@@ -106,16 +106,29 @@ public class profilePostsFragment extends Fragment {
         String imageFileName = post.getDate() + ".jpg";
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        StorageReference ref = storageReference.child(post.getName() + "/images/" + imageFileName);
+        StorageReference ref = storageReference.child(post.getUserId() + "/images/" + imageFileName);
         ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 postCardModel postCard = post;
                 postCard.setPost_picture(uri.toString());
-                postCardModelArrayList.add(postCard);
-                adapter = new PV_RV_Adapter(getActivity(), postCardModelArrayList);
-                postRecyclerView.setAdapter(adapter);
-            }
+                StorageReference ref1 = storageReference.child(post.getUserId() + "/images/" + "ProfilePicture.png");
+                ref1.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri1) {
+                    postCard.setProfile_picture(uri1.toString());
+                        postCardModelArrayList.add(postCard);
+                        adapter = new PV_RV_Adapter(getActivity(), postCardModelArrayList);
+                        postRecyclerView.setAdapter(adapter);
+                    }
+
+            }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle any errors
+                    }
+                });
+        }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {

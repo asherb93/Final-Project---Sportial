@@ -82,10 +82,9 @@ public class sportChoiceActivity extends AppCompatActivity {
                 try{
                     String sportName = this.sportName.getText().toString();
                     user.setSportType(sportName);
-                    func.uploadDetails(user);
-                    func.uploadSport(user);
                     Toast.makeText(this, "You choose" + sportName, Toast.LENGTH_SHORT).show();
                     Intent intent=new Intent(this, ImageUploadActivity.class);
+                    intent.putExtra("user", user);
                     startActivity(intent);
                 }
                 catch (Exception e){
