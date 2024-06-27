@@ -126,9 +126,10 @@ public class FirebaseFunctions {
     public void uploadPost(postCardModel post){
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
+        post.setName(firebaseUser.getUid());
         firebaseDatabase = FirebaseDatabase.getInstance();
         // below line is used to get reference for our database.
-        databaseReference = firebaseDatabase.getReference("Posts/"+firebaseUser.getUid()+"/"+post.getPostid());
+        databaseReference = firebaseDatabase.getReference("Posts/"+firebaseUser.getUid()+"/"+post.getDate());
         databaseReference.setValue(post);
     }
 

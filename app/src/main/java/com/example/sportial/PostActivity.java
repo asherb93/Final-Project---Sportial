@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import java.time.*;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -16,12 +18,18 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.sportial.Data.UploadPictureCallback;
+import com.example.sportial.FirebaseFunctions;
+import com.example.sportial.Model.postCardModel;
+import com.example.sportial.R;
+import com.example.sportial.sportialActivity;
 
 public class PostActivity extends AppCompatActivity {
 
     ImageView imageUploadImageView;
     private Uri imageUri;
     private Button post_button;
+    private EditText post_text;
+
     FirebaseFunctions func = new FirebaseFunctions();
 
 
@@ -63,14 +71,21 @@ public class PostActivity extends AppCompatActivity {
         });
 
         post_button.setOnClickListener(view -> {
-           uploadImage();
+            postCardModel post = new postCardModel(post_text.getText().toString(), LocalDateTime.now().toString().replace('.','-') );
+            if(imageUri != null){
+                post.setHasImage(true);
+                post.setPost_picture(imageUri.toString());
+                uploadImage(post.getDate());
+            }
+            func.uploadPost(post);
+            Intent intent = new Intent(PostActivity.this, sportialActivity.class);
+            startActivity(intent);
         });
-
 
     }
 
-    private void uploadImage() {
-        String fileName = "postImage.png";
+    private void uploadImage(String date) {
+        String fileName = (date + ".jpg");
         func.uploadPicture(imageUri, fileName, new UploadPictureCallback() {
             @Override
             public void onUploadComplete(boolean success) {
@@ -90,5 +105,6 @@ public class PostActivity extends AppCompatActivity {
     private void findViews() {
         imageUploadImageView = findViewById(R.id.post_image_upload_button);
         post_button = findViewById(R.id.post_post_button);
+        post_text = findViewById(R.id.editTextText2);
     }
 }

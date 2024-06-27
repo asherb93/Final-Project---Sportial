@@ -3,39 +3,27 @@ package com.example.sportial.Model;
 import android.net.Uri;
 
 import java.net.URI;
+import java.time.*;
+import java.io.Serializable;
 
-public class postCardModel {
+public class postCardModel implements Serializable{
 
      String name;
-     static int postid = 0;
      String date;
      String text;
-     private Uri post_picture;
-
-    public static void setPostid(int postid) {
-        postCardModel.postid = postid;
-    }
+     boolean hasImage;
+     String postPictureUrl;
 
 
     public postCardModel(){
 
     }
-    public postCardModel(String name, String date, String text) {
-        this.name = name;
+    public postCardModel(String text, String date) {
         this.date = date;
         this.text = text;
-        this.postid = postid++;
-
+        this.hasImage = false;
     }
 
-    public postCardModel(String name, String date, String text,Uri post_picture) {
-        this.name = name;
-        this.date = date;
-        this.text = text;
-        this.postid = postid++;
-        this.post_picture = post_picture;
-
-    }
 
 
     public String getName() {
@@ -62,16 +50,21 @@ public class postCardModel {
         this.text = text;
     }
 
-    public int getPostid() {
-        return postid;
+
+    public void setHasImage(boolean hasImage){
+        this.hasImage = hasImage;
     }
 
-    public Uri getPost_picture() {
-        return post_picture;
+    public boolean getHasImage(){
+        return hasImage;
     }
 
-    public void setPost_picture(Uri post_picture) {
-        this.post_picture = post_picture;
+    public void setPost_picture(String post_picture) {
+        this.postPictureUrl = post_picture;
     }
+    public String getPost_picture() {
+        return postPictureUrl;
+    }
+
 
 }
