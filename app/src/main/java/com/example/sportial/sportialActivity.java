@@ -102,11 +102,16 @@ public class sportialActivity extends AppCompatActivity {
             finish();
 
         });
-
-
-
-
-
-
     }
+
+    public void receiveData(String data) {
+        Fragment profileFragment = new ProfilePageFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("userId", data);
+        profileFragment.setArguments(bundle);
+        FragmentManager profileFragmentManager = getSupportFragmentManager();
+        profileFragmentManager.beginTransaction().replace(R.id.sportial_fragment_container, profileFragment).commit();
+        // Handle the received data here
+    }
+
 }

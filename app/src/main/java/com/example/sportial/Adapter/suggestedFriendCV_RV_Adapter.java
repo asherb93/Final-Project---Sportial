@@ -3,12 +3,14 @@ package com.example.sportial.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -34,6 +36,18 @@ public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggested
     static FirebaseFunctions func = new FirebaseFunctions();
     LayoutInflater inflater;
     View view;
+
+    // listener interface to pace argument from adapter to fragment
+    public interface OnItemClickListener {
+        void onItemClick(String data);
+    }
+
+    private OnItemClickListener listener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
 
     public suggestedFriendCV_RV_Adapter(Context context, ArrayList<friendCardModel> suggestedFriendsArrayList) {
         this.context = context;
@@ -73,21 +87,16 @@ public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggested
             holder.declineButton.setVisibility(View.INVISIBLE);
         }
 
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                        String userId = suggestedFriendsArrayList.get(position).getUserId();
-//
-//                        //change to profile fragment
-//                        Fragment profileFragment = new ProfilePageFragment();
-//                        Bundle bundle = new Bundle();
-//                        bundle.putSerializable("userId", userId);
-//                        profileFragment.setArguments(bundle);
-//                        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-//                        transaction.replace(R.id.profile_fragment_container, profileFragment).commit();
-//
-//            }
-//        });
+        // Inside the Adapter's ViewHolder or onBindViewHolder method
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            final String userId = suggestedFriendsArrayList.get(position).getUserId();
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onItemClick(userId);
+                }
+            }
+        });
 
     }
 

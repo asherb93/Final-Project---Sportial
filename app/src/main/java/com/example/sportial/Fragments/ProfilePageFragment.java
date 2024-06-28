@@ -55,6 +55,9 @@ public class ProfilePageFragment extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
+    String userID;
+
+
     ImageView profileBackgroundImageView;
     ImageView profileImageView;
     TextView profileNameTextView;
@@ -107,9 +110,19 @@ public class ProfilePageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        userID = getArguments().getSerializable("userId").toString();
+        if(userID==null)
+        {
+            mAuth = FirebaseAuth.getInstance();
+            firebaseUser = mAuth.getCurrentUser();
+            userID = firebaseUser.getUid();
+        }
+        // Retrieve data from arguments
         showUserProfile();
     }
+
+
+
 
     void showUserProfile(){
         mAuth = FirebaseAuth.getInstance();
@@ -117,7 +130,7 @@ public class ProfilePageFragment extends Fragment {
         String imageFileName = "ProfilePicture.png";
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        StorageReference ref = storageReference.child(firebaseUser.getUid() + "/images/" + imageFileName);
+        StorageReference ref = storageReference.child(userID + "/images/" + imageFileName);
         ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -133,7 +146,7 @@ public class ProfilePageFragment extends Fragment {
         });
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Users/" + firebaseUser.getUid());
+        databaseReference = firebaseDatabase.getReference("Users/" + userID);
         ValueEventListener userListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

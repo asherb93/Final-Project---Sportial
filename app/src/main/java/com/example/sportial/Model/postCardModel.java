@@ -20,6 +20,7 @@ public class postCardModel implements Serializable{
     public postCardModel(){
 
     }
+
     public postCardModel(String text, String date) {
         this.date = date;
         this.text = text;

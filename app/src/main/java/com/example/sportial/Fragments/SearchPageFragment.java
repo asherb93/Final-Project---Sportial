@@ -20,6 +20,7 @@ import com.example.sportial.FirebaseFunctions;
 import com.example.sportial.Model.friendCardModel;
 import com.example.sportial.R;
 
+import com.example.sportial.sportialActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,6 +52,20 @@ public class SearchPageFragment extends Fragment {
     StorageReference storageReference;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+
+
+    // Define the callback method in your Fragment
+    private void fragmentCallback(String data) {
+        sendDataToActivity(data);//sending the data to activity
+    }
+
+    private void sendDataToActivity(String data) {
+        if (getActivity() instanceof sportialActivity) {
+            ((sportialActivity) getActivity()).receiveData(data);
+        }
+    }
+
+
 
 
     @Override
@@ -120,6 +135,12 @@ public class SearchPageFragment extends Fragment {
         });
     }
 
+
+
+
+
+
+
     public void showSuggestedFriends(UserModel user, String uid) {
 
         if(!((user.getUserId()).equals(uid))) {
@@ -153,6 +174,15 @@ public class SearchPageFragment extends Fragment {
                     suggestedFriendsList.add(friend);
                     adapter = new suggestedFriendCV_RV_Adapter(getActivity(), suggestedFriendsList);
                     friendsRecyclerView.setAdapter(adapter);
+                    //
+                    // refering to the OnItemClickListener interface called in the adapter to pass the data
+                    adapter.setOnItemClickListener(new suggestedFriendCV_RV_Adapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(String data) {//data is passed from adapter through here
+                            fragmentCallback(data); // Call your callback method
+                        }
+                    });
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
