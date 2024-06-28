@@ -14,9 +14,12 @@ import androidx.fragment.app.FragmentManager;
 import com.example.sportial.Fragments.MapsFragment;
 import com.example.sportial.Fragments.ProfilePageFragment;
 import com.example.sportial.Fragments.SearchPageFragment;
+import com.example.sportial.Fragments.HomePageFragment;
 import com.example.sportial.UI.ChatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class sportialActivity extends AppCompatActivity {
 
@@ -27,6 +30,9 @@ public class sportialActivity extends AppCompatActivity {
     private static final int MENU_ITEM_CHATS = R.id.navigation_chats;
     BottomNavigationView socialMediaNav;
     FloatingActionButton new_post_FAB;
+
+    FirebaseAuth mAuth;
+    FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +45,13 @@ public class sportialActivity extends AppCompatActivity {
             return insets;
         });
 
-        Fragment mapsFragment = new MapsFragment();
-        FragmentManager mapsFragmentManager = getSupportFragmentManager();
-        mapsFragmentManager.beginTransaction().replace(R.id.sportial_fragment_container, mapsFragment).commit();
+//        Fragment mapsFragment = new MapsFragment();
+//        FragmentManager mapsFragmentManager = getSupportFragmentManager();
+//        mapsFragmentManager.beginTransaction().replace(R.id.sportial_fragment_container, mapsFragment).commit();
 
+        Fragment homePageFragment = new HomePageFragment();
+        FragmentManager homePageFragmentManager = getSupportFragmentManager();
+        homePageFragmentManager.beginTransaction().replace(R.id.sportial_fragment_container, homePageFragment).commit();
 
         socialMediaNav = findViewById(R.id.sportial_menu);
         new_post_FAB = findViewById(R.id.new_post_FAB);
@@ -50,8 +59,15 @@ public class sportialActivity extends AppCompatActivity {
 
         socialMediaNav.setOnItemSelectedListener(item -> {
             if (item.getItemId() == MENU_ITEM_PROFILE) {
+                mAuth = FirebaseAuth.getInstance();
+                firebaseUser = mAuth.getCurrentUser();
+                String userId = firebaseUser.getUid();
+
                 //change to profile fragment
                 Fragment profileFragment = new ProfilePageFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("userId", userId);
+                profileFragment.setArguments(bundle);
                 FragmentManager profileFragmentManager = getSupportFragmentManager();
                 profileFragmentManager.beginTransaction().replace(R.id.sportial_fragment_container, profileFragment).commit();
                 return true;
@@ -68,6 +84,12 @@ public class sportialActivity extends AppCompatActivity {
                 Intent intent = new Intent(sportialActivity.this, ChatActivity.class);
                 startActivity(intent);
                 finish();
+                return true;
+            }
+            if (item.getItemId() == MENU_ITEM_HOME) {
+                //change to profile fragment
+                FragmentManager profileFragmentManager = getSupportFragmentManager();
+                profileFragmentManager.beginTransaction().replace(R.id.sportial_fragment_container, homePageFragment).commit();
                 return true;
             }
 

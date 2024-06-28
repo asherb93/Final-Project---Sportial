@@ -2,6 +2,7 @@ package com.example.sportial.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +11,18 @@ import android.widget.TextView;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.sportial.Data.MyCallback;
 import com.example.sportial.FirebaseFunctions;
+import com.example.sportial.Fragments.ProfilePageFragment;
 import com.example.sportial.Model.friendCardModel;
 import com.example.sportial.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +32,8 @@ public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggested
     Context context;
     static ArrayList<friendCardModel> suggestedFriendsArrayList;
     static FirebaseFunctions func = new FirebaseFunctions();
+    LayoutInflater inflater;
+    View view;
 
     public suggestedFriendCV_RV_Adapter(Context context, ArrayList<friendCardModel> suggestedFriendsArrayList) {
         this.context = context;
@@ -35,8 +43,8 @@ public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggested
     @NonNull
     @Override
     public suggestedFriendCV_RV_Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.friend_card_view, parent, false);
+        inflater = LayoutInflater.from(context);
+        view = inflater.inflate(R.layout.friend_card_view, parent, false);
         return new suggestedFriendCV_RV_Adapter.MyViewHolder(view);
     }
 
@@ -64,6 +72,22 @@ public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggested
             holder.acceptButton.setVisibility(View.INVISIBLE);
             holder.declineButton.setVisibility(View.INVISIBLE);
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                        String userId = suggestedFriendsArrayList.get(position).getUserId();
+
+                        //change to profile fragment
+                        Fragment profileFragment = new ProfilePageFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("userId", userId);
+                        profileFragment.setArguments(bundle);
+                        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                        transaction.replace(R.id.profile_fragment_container, profileFragment).commit();
+
+            }
+        });
 
     }
 
@@ -135,6 +159,7 @@ public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggested
                 }
 
             });
+
         }
     }
 }

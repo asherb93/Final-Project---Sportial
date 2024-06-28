@@ -3,6 +3,7 @@ package com.example.sportial.Fragments;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -58,6 +59,7 @@ public class SearchPageFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_search_page,container,false);
         friendsRecyclerView = view.findViewById(R.id.friend_recycler_view);
+
         setFriendList(suggestedFriendsList);
         //adapter = new FriendCV_RV_Adapter(requireContext(),suggestedFriendsList);
         //friendsRecyclerView.setAdapter(adapter);
