@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Sportial</string>
 
+    <string name="select_level"> Select Level </string>
+
+
+
     <string-array name="dropbox_sportOptions">
         <item>Please select a sport field you are interested in</item>
         <item>Football</item>

@@ -73,21 +73,21 @@ public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggested
             holder.declineButton.setVisibility(View.INVISIBLE);
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                        String userId = suggestedFriendsArrayList.get(position).getUserId();
-
-                        //change to profile fragment
-                        Fragment profileFragment = new ProfilePageFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("userId", userId);
-                        profileFragment.setArguments(bundle);
-                        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                        transaction.replace(R.id.profile_fragment_container, profileFragment).commit();
-
-            }
-        });
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                        String userId = suggestedFriendsArrayList.get(position).getUserId();
+//
+//                        //change to profile fragment
+//                        Fragment profileFragment = new ProfilePageFragment();
+//                        Bundle bundle = new Bundle();
+//                        bundle.putSerializable("userId", userId);
+//                        profileFragment.setArguments(bundle);
+//                        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+//                        transaction.replace(R.id.profile_fragment_container, profileFragment).commit();
+//
+//            }
+//        });
 
     }
 

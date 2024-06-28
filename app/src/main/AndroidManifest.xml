@@ -52,6 +52,9 @@
             android:name=".UI.sportChoiceActivity"
             android:exported="true" />
         <activity
+            android:name=".UI.LevelActivity"
+            android:exported="true"/>
+        <activity
             android:name=".ImageUploadActivity"
             android:exported="true">
             <intent-filter>
@@ -76,6 +79,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
