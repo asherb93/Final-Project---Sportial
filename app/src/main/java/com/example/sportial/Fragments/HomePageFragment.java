@@ -2,6 +2,7 @@ package com.example.sportial.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,9 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.sportial.Adapter.Homepage_RV_Adapter;
-import com.example.sportial.Adapter.PV_RV_Adapter;
+import com.example.sportial.Data.UserModel;
 import com.example.sportial.Model.postCardModel;
 import com.example.sportial.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -24,6 +34,14 @@ public class HomePageFragment extends Fragment {
     public RecyclerView homePageRecyclerView;
     private View view;
     public Homepage_RV_Adapter adapter;
+    public ArrayList <String> usersIds = new ArrayList<>();
+
+    FirebaseAuth mAuth;
+    FirebaseUser firebaseUser;
+    FirebaseStorage storage;
+    StorageReference storageReference;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
 
     @Override
@@ -41,7 +59,8 @@ public class HomePageFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home_page, container, false);
         homePageRecyclerView = view.findViewById(R.id.homepage_RV);
-        setUsersPosts();
+        //setUsersPosts();
+        getSportType();
         adapter = new Homepage_RV_Adapter(getActivity(), postCardModelArrayList);
         homePageRecyclerView.setAdapter(adapter);
         homePageRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -55,8 +74,6 @@ public class HomePageFragment extends Fragment {
     private void setUsersPosts() {
         //TO DO - get data from backend
 
-
-
         postCardModelArrayList.add(new postCardModel("bla bla","2006"));
         postCardModelArrayList.add(new postCardModel("bla bla","2006"));
         postCardModelArrayList.add(new postCardModel("bla bla","2006"));
@@ -73,6 +90,82 @@ public class HomePageFragment extends Fragment {
         postCardModelArrayList.add(new postCardModel("bla bla","2006"));
         postCardModelArrayList.add(new postCardModel("bla bla","2006"));
 
+    }
+
+    public void getSportType(){
+        mAuth = FirebaseAuth.getInstance();
+        firebaseUser = mAuth.getCurrentUser();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Users/"+firebaseUser.getUid());
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                UserModel user = dataSnapshot.getValue(UserModel.class);
+                String sportType = user.getSportType();
+                getSportTypeUsers(sportType);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getSportTypeUsers(String sportType){
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Sports/"+sportType);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds: dataSnapshot.getChildren()) {
+                    String userId = ds.getKey();
+                    usersIds.add(userId);
+                }
+                getUsersPosts(usersIds);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public void getUsersPosts(ArrayList<String> usersIds) {
+            firebaseDatabase = FirebaseDatabase.getInstance();
+            databaseReference = firebaseDatabase.getReference("Posts");
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    postCardModelArrayList.clear();
+                    for(DataSnapshot ds: dataSnapshot.getChildren()) {
+                        for(String userId : usersIds) {
+                            if(ds.getKey().equals(userId)) {
+                                long size = ds.getChildrenCount();
+                                for(DataSnapshot dsPost: ds.getChildren()) {
+                                    postCardModel post = dsPost.getValue(postCardModel.class);
+                                    postCardModelArrayList.add(post);
+                                }
+                            }
+                        }
+                    }
+                    sort(postCardModelArrayList);
+                    adapter = new Homepage_RV_Adapter(getActivity(), postCardModelArrayList);
+                    homePageRecyclerView.setAdapter(adapter);
+                    homePageRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+    }
+
+    public static void sort(ArrayList<postCardModel> postCardModelArrayList) {
+        postCardModelArrayList.sort((o1, o2)
+                -> o2.getDate().compareTo(
+                o1.getDate()));
     }
 
 
