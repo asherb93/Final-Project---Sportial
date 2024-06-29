@@ -59,6 +59,7 @@ public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggested
     public suggestedFriendCV_RV_Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         inflater = LayoutInflater.from(context);
         view = inflater.inflate(R.layout.friend_card_view, parent, false);
+
         return new suggestedFriendCV_RV_Adapter.MyViewHolder(view);
     }
 
@@ -67,6 +68,7 @@ public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggested
         holder.friendNameTV.setText(suggestedFriendsArrayList.get(position).getUserName());
         holder.friendLocationTV.setText(suggestedFriendsArrayList.get(position).getUserLocation());
         Glide.with(holder.friendProfileIV).load(suggestedFriendsArrayList.get(position).getUserProfilePic()).into(holder.friendProfileIV);
+
         if (suggestedFriendsArrayList.get(position).getStatus() != null) {
             if ((suggestedFriendsArrayList.get(position).getStatus().equals("sent"))) {
                 holder.requestFriendBtn.setText(R.string.request_sent);

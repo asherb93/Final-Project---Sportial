@@ -53,10 +53,6 @@ public class profilePostsFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_profile_posts, container, false);
 
         postRecyclerView = view.findViewById(R.id.user_posts_RV);
-        //setPostCardArray(postCardModelArrayList);
-//        adapter = new PV_RV_Adapter(getActivity(), postCardModelArrayList);
-//        postRecyclerView.setAdapter(adapter);
-//        postRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         return view;
     }
@@ -82,26 +78,6 @@ public class profilePostsFragment extends Fragment {
             }
         });
 
-
-
-
-
-
-
-
-//        postCardModelArrayList.add(new postCardModel("","",""));
-//        postCardModelArrayList.add(new postCardModel("Michael Jordan","May 25th 2024","Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n"));
-//        postCardModelArrayList.add(new postCardModel("Michael Jordan","May 25th 2024","Posuere urna nec tincidunt praesent semper feugiat nibh. Nibh mauris cursus mattis molestie a iaculis. Ullamcorper malesuada proin libero nunc consequat interdum varius sit. Tristique senectus et netus et malesuada fames. Commodo quis imperdiet massa tincidunt nunc pulvinar sapien et ligula. Pellentesque dignissim enim sit amet venenatis urna cursus eget. Eget dolor morbi non arcu. Amet consectetur adipiscing elit pellentesque habitant morbi tristique. Feugiat pretium nibh ipsum consequat. Lectus nulla at volutpat diam ut. Odio aenean sed adipiscing diam donec adipiscing tristique risus.\n" +
-//                "\n"));
-//        postCardModelArrayList.add(new postCardModel("Michael Jordan","May 25th 2024","Text5"));
-//        postCardModelArrayList.add(new postCardModel("Michael Jordan","May 25th 2024","Text6"));
-//        postCardModelArrayList.add(new postCardModel("Michael Jordan","May 25th 2024","Text7"));
-//        postCardModelArrayList.add(new postCardModel("Michael Jordan","May 25th 2024","Text8"));
-//        postCardModelArrayList.add(new postCardModel("Michael Jordan","May 25th 2024","Text9"));
-//        postCardModelArrayList.add(new postCardModel("Michael Jordan","May 25th 2024","Text10"));
-//        postCardModelArrayList.add(new postCardModel("Michael Jordan","May 25th 2024","Text11"));
-//        postCardModelArrayList.add(new postCardModel("Michael Jordan","May 25th 2024","Text12"));
-//        postCardModelArrayList.add(new postCardModel("Michael Jordan","May 25th 2024","Text13"));
     }
 
     public void showPosts(postCardModel post){
@@ -151,6 +127,5 @@ public class profilePostsFragment extends Fragment {
             userID = firebaseUser.getUid();
         }
         setPostCardArray(postCardModelArrayList);
-
     }
-    }
+}

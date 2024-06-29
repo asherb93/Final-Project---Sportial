@@ -76,8 +76,6 @@ public class SearchPageFragment extends Fragment {
         friendsRecyclerView = view.findViewById(R.id.friend_recycler_view);
 
         setFriendList(suggestedFriendsList);
-        //adapter = new FriendCV_RV_Adapter(requireContext(),suggestedFriendsList);
-        //friendsRecyclerView.setAdapter(adapter);
         friendsRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         return view;
     }
@@ -117,13 +115,6 @@ public class SearchPageFragment extends Fragment {
                 for(DataSnapshot ds: dataSnapshot.getChildren()) {
                     UserModel user = ds.getValue(UserModel.class);
                     showSuggestedFriends(user,uid);
-                    /*if(!((user.getUserId()).equals(uid))) {
-                        friendCardModel friend = new friendCardModel(user.getFullName(), user.getCity(),R.drawable.ic_profile );
-                        suggestedFriendsList.add(friend);
-                    }
-
-                    adapter = new FriendCV_RV_Adapter(getActivity(), suggestedFriendsList);
-                    friendsRecyclerView.setAdapter(adapter);*/
                 }
 
             }
@@ -134,11 +125,6 @@ public class SearchPageFragment extends Fragment {
             }
         });
     }
-
-
-
-
-
 
 
     public void showSuggestedFriends(UserModel user, String uid) {
@@ -192,6 +178,12 @@ public class SearchPageFragment extends Fragment {
             });
 
         }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
     }
 
 }

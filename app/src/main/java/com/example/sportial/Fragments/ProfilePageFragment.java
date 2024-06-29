@@ -66,7 +66,6 @@ public class ProfilePageFragment extends Fragment {
     Bundle bundle;
     FragmentTransaction transaction;
 
-    String userIDref;
 
     Button bottomChatBtn;
     BottomNavigationView bottomNavigationView;
@@ -80,8 +79,6 @@ public class ProfilePageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view= inflater.inflate(R.layout.fragment_profile_page, container, false);
-//        String userId = getArguments().getSerializable("userId").toString();
-//        Log.d("ProfilePageFragment", "onCreateView: " + userId);
 
         findViews(view);
 
