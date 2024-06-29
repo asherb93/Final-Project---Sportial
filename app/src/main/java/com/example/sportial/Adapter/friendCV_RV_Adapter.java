@@ -29,12 +29,19 @@ public class friendCV_RV_Adapter extends RecyclerView.Adapter<friendCV_RV_Adapte
         this.profileFriendArrayList = profileFriendsArrayList;
     }
 
+
+
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.profile_friend_card_view, parent, false);
-        return new friendCV_RV_Adapter.MyViewHolder(view);    }
+        return new friendCV_RV_Adapter.MyViewHolder(view);
+    }
+
+
+
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {

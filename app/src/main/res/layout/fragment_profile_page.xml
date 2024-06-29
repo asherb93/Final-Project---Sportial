@@ -159,19 +159,6 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         >
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/nav_bar_place_holder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:itemTextAppearance="@style/BottomNavigationTextAppearance"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_cardView"
-            app:menu="@menu/social_media_menu" >
-
-        </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>
