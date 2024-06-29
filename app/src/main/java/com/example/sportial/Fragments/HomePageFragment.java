@@ -101,8 +101,9 @@ public class HomePageFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 UserModel user = dataSnapshot.getValue(UserModel.class);
+                String userLevel = user.getLevel();
                 String sportType = user.getSportType();
-                getSportTypeUsers(sportType);
+                getSportTypeUsers(sportType, userLevel);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -111,7 +112,7 @@ public class HomePageFragment extends Fragment {
         });
     }
 
-    public void getSportTypeUsers(String sportType){
+    public void getSportTypeUsers(String sportType, String userLevel){
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -121,9 +122,23 @@ public class HomePageFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 usersIds.clear();
                 for(DataSnapshot ds: dataSnapshot.getChildren()) {
-                    String userId = ds.getKey();
-                    if(!userId.equals(firebaseUser.getUid())) {
-                        usersIds.add(userId);
+                    UserModel suggestedUser = ds.getValue(UserModel.class);
+                    String suggestedUserId = suggestedUser.getUserId();
+                    String suggestedUserLevel = suggestedUser.getLevel();
+                    if(userLevel.equals("Beginner")) {
+                        if (!suggestedUserId.equals(firebaseUser.getUid())) {
+                            usersIds.add(suggestedUserId);
+                        }
+                    }
+                    else if(userLevel.equals("Intermediate")) {
+                        if (!suggestedUserId.equals(firebaseUser.getUid()) && (suggestedUserLevel.equals("Intermediate") || suggestedUserLevel.equals("Advanced"))) {
+                            usersIds.add(suggestedUserId);
+                        }
+                    }
+                    else if(userLevel.equals("Advanced")) {
+                        if (!suggestedUserId.equals(firebaseUser.getUid()) && suggestedUserLevel.equals("Advanced")) {
+                            usersIds.add(suggestedUserId);
+                        }
                     }
                 }
                 getUsersPosts(usersIds);
