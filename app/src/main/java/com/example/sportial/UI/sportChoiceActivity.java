@@ -29,6 +29,7 @@ import com.example.sportial.ImageUploadActivity;
 import com.example.sportial.R;
 import com.example.sportial.Data.UserModel;
 import com.example.sportial.Model.sportCardModel;
+import com.example.sportial.UI.LevelActivity;
 
 import java.util.ArrayList;
 
@@ -83,7 +84,7 @@ public class sportChoiceActivity extends AppCompatActivity {
                     String sportName = this.sportName.getText().toString();
                     user.setSportType(sportName);
                     Toast.makeText(this, "You choose" + sportName, Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(this, ImageUploadActivity.class);
+                    Intent intent=new Intent(this, LevelActivity.class);
                     intent.putExtra("user", user);
                     startActivity(intent);
                 }

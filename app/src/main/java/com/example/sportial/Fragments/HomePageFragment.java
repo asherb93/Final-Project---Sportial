@@ -112,14 +112,19 @@ public class HomePageFragment extends Fragment {
     }
 
     public void getSportTypeUsers(String sportType){
+        mAuth = FirebaseAuth.getInstance();
+        firebaseUser = mAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Sports/"+sportType);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                usersIds.clear();
                 for(DataSnapshot ds: dataSnapshot.getChildren()) {
                     String userId = ds.getKey();
-                    usersIds.add(userId);
+                    if(!userId.equals(firebaseUser.getUid())) {
+                        usersIds.add(userId);
+                    }
                 }
                 getUsersPosts(usersIds);
             }

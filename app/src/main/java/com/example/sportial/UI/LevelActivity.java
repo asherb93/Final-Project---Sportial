@@ -17,12 +17,15 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.sportial.Data.UserModel;
+import com.example.sportial.ImageUploadActivity;
 import com.example.sportial.R;
 
 public class LevelActivity extends AppCompatActivity {
@@ -31,17 +34,25 @@ public class LevelActivity extends AppCompatActivity {
     ArrayAdapter<String> adapterLevel;
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final int REQUEST_GALLERY = 200;
+    Button continueBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        UserModel user = (UserModel) intent.getSerializableExtra("user");
+        EdgeToEdge.enable(this);
+
         setContentView(R.layout.activity_level);
         autoCompleteTextView = findViewById(R.id.autoCompleteText);
+
         adapterLevel = new ArrayAdapter<String>(this, R.layout.list_items, level);
         autoCompleteTextView.setAdapter(adapterLevel);
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 String selectedLevel = adapterView.getItemAtPosition(position).toString();
+                user.setLevel(selectedLevel);
                 Toast.makeText(LevelActivity.this,"Level"+level,Toast.LENGTH_SHORT).show();
 
                 // Handle the selected level here
@@ -64,6 +75,13 @@ public class LevelActivity extends AppCompatActivity {
                     }
 
             }
+        });
+
+        continueBtn = findViewById(R.id.continueButton);
+        continueBtn.setOnClickListener(v -> {
+            Intent nextIntent=new Intent(this, ImageUploadActivity.class);
+            nextIntent.putExtra("user", user);
+            startActivity(nextIntent);
         });
 
     }
