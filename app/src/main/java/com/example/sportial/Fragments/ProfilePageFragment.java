@@ -63,6 +63,8 @@ public class ProfilePageFragment extends Fragment {
     TextView profileNameTextView;
 
     Fragment postsFragment;
+    Bundle bundle;
+    FragmentTransaction transaction;
 
     String userIDref;
 
@@ -78,24 +80,34 @@ public class ProfilePageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view= inflater.inflate(R.layout.fragment_profile_page, container, false);
-        String userId = getArguments().getSerializable("userId").toString();
-        Log.d("ProfilePageFragment", "onCreateView: " + userId);
+//        String userId = getArguments().getSerializable("userId").toString();
+//        Log.d("ProfilePageFragment", "onCreateView: " + userId);
 
         findViews(view);
+
+        postsFragment = new profilePostsFragment();
+        bundle = new Bundle();
+        bundle.putSerializable("userId", userID);
+        postsFragment.setArguments(bundle);
+        transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.profile_fragment_container, postsFragment).commit();
 
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == MENU_ITEM_POST) {
                 //change to profile fragment
-                Fragment postsFragment = new profilePostsFragment();
-                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                postsFragment = new profilePostsFragment();
+                bundle = new Bundle();
+                bundle.putSerializable("userId", userID);
+                postsFragment.setArguments(bundle);
+                transaction = getChildFragmentManager().beginTransaction();
                 transaction.replace(R.id.profile_fragment_container, postsFragment).commit();
                 return true;
             }
             if (item.getItemId() == MENU_ITEM_FRIENDS) {
                 //change to profile fragment
                 Fragment profileFriendsFragment = new profilefriendsfragment();
-                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction = getChildFragmentManager().beginTransaction();
                 transaction.replace(R.id.profile_fragment_container, profileFriendsFragment).commit();
                 return true;
             }

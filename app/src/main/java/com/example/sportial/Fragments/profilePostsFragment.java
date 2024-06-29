@@ -45,16 +45,18 @@ public class profilePostsFragment extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
+    String userID;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile_posts, container, false);
 
         postRecyclerView = view.findViewById(R.id.user_posts_RV);
-        setPostCardArray(postCardModelArrayList);
-        adapter = new PV_RV_Adapter(getActivity(), postCardModelArrayList);
-        postRecyclerView.setAdapter(adapter);
-        postRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        //setPostCardArray(postCardModelArrayList);
+//        adapter = new PV_RV_Adapter(getActivity(), postCardModelArrayList);
+//        postRecyclerView.setAdapter(adapter);
+//        postRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         return view;
     }
@@ -64,7 +66,7 @@ public class profilePostsFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Posts/" + firebaseUser.getUid());
+        databaseReference = firebaseDatabase.getReference("Posts/" + userID);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -120,6 +122,7 @@ public class profilePostsFragment extends Fragment {
                         postCardModelArrayList.add(postCard);
                         adapter = new PV_RV_Adapter(getActivity(), postCardModelArrayList);
                         postRecyclerView.setAdapter(adapter);
+                        postRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
                     }
 
             }).addOnFailureListener(new OnFailureListener() {
@@ -136,4 +139,18 @@ public class profilePostsFragment extends Fragment {
             }
         });
         }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        userID = getArguments().getSerializable("userId").toString();
+        if(userID==null)
+        {
+            mAuth = FirebaseAuth.getInstance();
+            firebaseUser = mAuth.getCurrentUser();
+            userID = firebaseUser.getUid();
+        }
+        setPostCardArray(postCardModelArrayList);
+
+    }
     }
