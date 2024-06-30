@@ -189,7 +189,6 @@ public class FirebaseFunctions {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         // Write failed
-                        // ...
                         callback.FriendRequestCallBack(false);
                 }
 });

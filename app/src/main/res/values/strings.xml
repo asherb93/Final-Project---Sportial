@@ -284,6 +284,8 @@
     <string name="what_s_on_your_mind">What\'s on your mind?</string>
     <string name="cancel" />
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="sport_name"><![CDATA[<sport_name>]]></string>
+    <string name="whats_new_in" />
 
 
 </resources>

@@ -82,25 +82,30 @@ public class ImageUploadActivity extends AppCompatActivity {
         });
 
         continueButton.setOnClickListener(view -> {
-                String fileName = "ProfilePicture.png";
-                userModel.setProfilePictureUrl(imageUri.toString());
-                func.uploadDetails(userModel);
-                func.uploadSport(userModel);
-                func.uploadPicture(imageUri, fileName, new UploadPictureCallback() {
-                    @Override
-                    public void onUploadComplete(boolean success) {
-                        if (success) {
-                            // Image uploaded successfully, start next activity
-                            Toast.makeText(ImageUploadActivity.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(ImageUploadActivity.this, sportialActivity.class);
-                            startActivity(intent);
-                        } else {
-                            // Handle upload failure (e.g., show an error message)
-                            Toast.makeText(ImageUploadActivity.this, "Upload failed", Toast.LENGTH_SHORT).show();
-                        }
+            if(userModel != null && imageUri!=null){
+            String fileName = "ProfilePicture.png";
+            userModel.setProfilePictureUrl(imageUri.toString());
+            func.uploadDetails(userModel);
+            func.uploadSport(userModel);
+            func.uploadPicture(imageUri, fileName, new UploadPictureCallback() {
+                @Override
+                public void onUploadComplete(boolean success) {
+                    if (success) {
+                        // Image uploaded successfully, start next activity
+                        Toast.makeText(ImageUploadActivity.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ImageUploadActivity.this, sportialActivity.class);
+                        startActivity(intent);
+                    } else {
+                        // Handle upload failure (e.g., show an error message)
+                        Toast.makeText(ImageUploadActivity.this, "Upload failed", Toast.LENGTH_SHORT).show();
                     }
-                });
+                }
+             });
             }
+            else{
+                Toast.makeText(this, "Please upload an Image", Toast.LENGTH_SHORT).show();
+            }
+        }
         );
 
     }

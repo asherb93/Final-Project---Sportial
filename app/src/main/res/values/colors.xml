@@ -5,8 +5,10 @@
     <color name="lightGreen">#86DCAA</color>
     <color name="lime">#00EC63</color>
     <color name="greyLime">#2E704A</color>
-    <color name="lightGrey">#80959595</color>
+    <color name="lightGrey">#DCDCDC</color>
     <color name="lightGold">#F3E59D</color>
     <color name="blackTint">#D8FFFFFF</color>
+    <color name="sportGreen">#7CB342</color>
+
 
 </resources>

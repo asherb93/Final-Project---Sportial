@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.sportial.Adapter.Homepage_RV_Adapter;
 import com.example.sportial.Data.UserModel;
@@ -35,7 +36,7 @@ public class HomePageFragment extends Fragment {
     private View view;
     public Homepage_RV_Adapter adapter;
     public ArrayList <String> usersIds = new ArrayList<>();
-
+    public TextView sportNameTextView;
     FirebaseAuth mAuth;
     FirebaseUser firebaseUser;
     FirebaseStorage storage;
@@ -56,20 +57,21 @@ public class HomePageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getSportType();
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_home_page, container, false);
+        view =  inflater.inflate(R.layout.fragment_home_page, container, false);
         homePageRecyclerView = view.findViewById(R.id.homepage_RV);
         //setUsersPosts();
-        getSportType();
         adapter = new Homepage_RV_Adapter(getActivity(), postCardModelArrayList);
         homePageRecyclerView.setAdapter(adapter);
         homePageRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        findViews();
         return view;
     }
 
-
-
-
+    private void findViews() {
+        sportNameTextView = view.findViewById(R.id.sport_name_textview);
+    }
 
     private void setUsersPosts() {
         //TO DO - get data from backend
@@ -103,6 +105,7 @@ public class HomePageFragment extends Fragment {
                 UserModel user = dataSnapshot.getValue(UserModel.class);
                 String userLevel = user.getLevel();
                 String sportType = user.getSportType();
+                sportNameTextView.setText(sportType);
                 getSportTypeUsers(sportType, userLevel);
             }
             @Override
@@ -187,6 +190,8 @@ public class HomePageFragment extends Fragment {
                 -> o2.getDate().compareTo(
                 o1.getDate()));
     }
+
+
 
 
 }
