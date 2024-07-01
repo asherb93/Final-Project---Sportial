@@ -129,20 +129,15 @@ public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggested
                 @Override
                 public void onClick(View v) {
 
-                    func.sendFriendRequest(suggestedFriendsArrayList.get(getAbsoluteAdapterPosition()).getUserId(), new MyCallback() {
+                    func.sendFriendRequest(suggestedFriendsArrayList.get(getAdapterPosition()).getUserId(), new MyCallback() {
 
                         @Override
                         public void FriendRequestCallBack(boolean success) {
-                          if(success){
-                              suggestedFriendsArrayList.get(getAbsoluteAdapterPosition()).setStatus("received");
-                              requestFriendBtn.setText(R.string.request_sent);
-                              requestFriendBtn.setBackgroundColor(R.color.lightGrey);
-                          }
-
-
-
+                            
                         }
                     });
+                    requestFriendBtn.setText(R.string.request_sent);
+                    requestFriendBtn.setBackgroundColor(R.color.lightGrey);
                     suggestedFriendsArrayList.get(getAdapterPosition()).setStatus("sent");
                 }
             });

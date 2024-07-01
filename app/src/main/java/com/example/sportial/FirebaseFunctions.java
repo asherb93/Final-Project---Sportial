@@ -176,7 +176,6 @@ public class FirebaseFunctions {
         // below line is used to get reference for our database.
         databaseReference = firebaseDatabase.getReference("Users/"+firebaseUser.getUid()+"/FriendRequests/"+receiverUid);
         databaseReference.setValue(friendRequest)
-
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
