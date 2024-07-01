@@ -12,7 +12,7 @@ public class postCardModel implements Serializable{
      String userId;
      String date;
      String text;
-     boolean hasImage;
+     boolean hasImage = false;
      String postPictureUrl;
      String profilePictureUrl;
 

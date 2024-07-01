@@ -133,7 +133,7 @@ public class suggestedFriendCV_RV_Adapter extends RecyclerView.Adapter<suggested
 
                         @Override
                         public void FriendRequestCallBack(boolean success) {
-                            
+
                         }
                     });
                     requestFriendBtn.setText(R.string.request_sent);

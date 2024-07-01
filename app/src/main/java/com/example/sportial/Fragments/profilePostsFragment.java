@@ -54,6 +54,8 @@ public class profilePostsFragment extends Fragment {
 
         postRecyclerView = view.findViewById(R.id.user_posts_RV);
 
+        setPostCardArray(postCardModelArrayList);
+
         return view;
     }
 
@@ -69,7 +71,10 @@ public class profilePostsFragment extends Fragment {
                 postCardModelArrayList.clear();
                 for(DataSnapshot ds: dataSnapshot.getChildren()) {
                     postCardModel post = ds.getValue(postCardModel.class);
-                    showPosts(post);
+                    postCardModelArrayList.add(post);
+                    adapter = new PV_RV_Adapter(getActivity(), postCardModelArrayList);
+                    postRecyclerView.setAdapter(adapter);
+                    postRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
                 }
             }
             @Override
@@ -80,41 +85,6 @@ public class profilePostsFragment extends Fragment {
 
     }
 
-    public void showPosts(postCardModel post){
-        String imageFileName = post.getDate() + ".jpg";
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
-        StorageReference ref = storageReference.child(post.getUserId() + "/images/" + imageFileName);
-        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                postCardModel postCard = post;
-                postCard.setPost_picture(uri.toString());
-                StorageReference ref1 = storageReference.child(post.getUserId() + "/images/" + "ProfilePicture.png");
-                ref1.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri1) {
-                    postCard.setProfile_picture(uri1.toString());
-                        postCardModelArrayList.add(postCard);
-                        adapter = new PV_RV_Adapter(getActivity(), postCardModelArrayList);
-                        postRecyclerView.setAdapter(adapter);
-                        postRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-                    }
-
-            }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle any errors
-                    }
-                });
-        }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-            }
-        });
-        }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -126,6 +96,6 @@ public class profilePostsFragment extends Fragment {
             firebaseUser = mAuth.getCurrentUser();
             userID = firebaseUser.getUid();
         }
-        setPostCardArray(postCardModelArrayList);
+
     }
 }
