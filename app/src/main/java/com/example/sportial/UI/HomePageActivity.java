@@ -2,7 +2,7 @@ package com.example.sportial.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
-
+//21.06.25
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
